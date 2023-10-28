@@ -154,3 +154,9 @@ li.react-tabs__tab--selected{
   font-weight: bold;
   color: darkcyan;
 }
+
+.step-form{
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(248, 237, 237, 0.19);
+}

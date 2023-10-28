@@ -9,6 +9,7 @@ import Home from "../Screens/Home";
 import AllJobs from "../Screens/AllJobs";
 import UnapprovedJobs from "../Screens/UnapprovedJobs";
 import ChatScreen from "../Screens/ChatScreen";
+import MultiStepForm from "./MultiStepForm";
 
 const VerticalTabs = () => {
   return (
@@ -19,7 +20,9 @@ const VerticalTabs = () => {
             <Tab className="vertical-tab">
               <GridViewIcon /> Dashboard
             </Tab>
-
+            <Tab className="vertical-tab">
+              <WorkHistoryIcon /> Post Job
+            </Tab>
             <Tab className="vertical-tab">
               <WorkHistoryIcon /> My Jobs
             </Tab>
@@ -33,7 +36,9 @@ const VerticalTabs = () => {
           <TabPanel>
             <Home />
           </TabPanel>
-
+          <TabPanel>
+            <MultiStepForm />
+          </TabPanel>
           <TabPanel>
             <AllJobs />
           </TabPanel>
