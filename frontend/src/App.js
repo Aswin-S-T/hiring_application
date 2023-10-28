@@ -7,6 +7,7 @@ import HomeScreen from "./Screens/HomeScreen";
 import JobDetailsPage from "./Screens/JobDetailsPage";
 import LoginScreen from "./company/Screens/LoginScreen";
 import RegisterScreen from "./company/Screens/RegisterScreen";
+import Dashboard from "./company/Screens/Dashboard";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             {/* Company Routes */}
             <Route path="/company/login" element={<LoginScreen />} />
             <Route path="/company/register" element={<RegisterScreen />} />
+            <Route path="/company/dashboard" element={<Dashboard />} />
           </Routes>
         </main>
       </div>
