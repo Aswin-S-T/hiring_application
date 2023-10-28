@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import PrimarySearchAppBar from "./Components/Header/Header";
+import OutlinedCard from "./Components/Card/Card";
+import Sidebar from "./Components/Sidebar/Sidebar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomeScreen from "./Screens/HomeScreen";
+import JobDetailsPage from "./Screens/JobDetailsPage";
+import LoginScreen from "./company/Screens/LoginScreen";
+import RegisterScreen from "./company/Screens/RegisterScreen";
+import Dashboard from "./company/Screens/Dashboard";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div>
+        <header style={{ backgroundColor: "yellow" }}>
+          {/* <PrimarySearchAppBar style={{ backgroundColor: "yellow" }} /> */}
+        </header>
+        <main className="">
+          <Routes>
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/job" element={<JobDetailsPage />} />
+
+            {/* Company Routes */}
+            <Route path="/company/login" element={<LoginScreen />} />
+            <Route path="/company/register" element={<RegisterScreen />} />
+            <Route path="/company/dashboard" element={<Dashboard />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 
