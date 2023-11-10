@@ -32,8 +32,8 @@ function Navbar() {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Pricing
+                <a class="nav-link" href="/companies">
+                  Companies
                 </a>
               </li>
               <li class="nav-item">

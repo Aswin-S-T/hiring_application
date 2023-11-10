@@ -218,7 +218,7 @@ function AllJobs() {
                 </div>
                 <div class="content col-md-9">
                   <div>
-                    <input type="search" className="form-control" />
+                    <input type="search" className="form-control" placeholder="Search job" />
                     <i className="fa fa-search" style={{ float: "right" }}></i>
                   </div>
                   <div class="d-flex justify-content-between border-bottom align-items-center mt-2">

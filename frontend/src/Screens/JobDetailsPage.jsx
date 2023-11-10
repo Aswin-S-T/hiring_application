@@ -1,10 +1,13 @@
 import React from "react";
 import JobDetail from "../Components/Card/JobDetail";
 import OutlinedCard from "../Components/Card/Card";
+import Navbar from "../Components/Navbar/Navbar";
 
 function JobDetailsPage() {
   return (
-    <div className="container-fluid mt-5">
+    <div style={{backgroundColor:"whitesmoke"}}>
+        <Navbar />
+        <div className="container mt-5">
         <div className="row mt-5">
             <div className="col-md-8">
                 <JobDetail />
@@ -16,6 +19,7 @@ function JobDetailsPage() {
                 </div>
             </div>
         </div>
+    </div>
     </div>
   );
 }
