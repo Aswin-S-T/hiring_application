@@ -25,8 +25,7 @@ header{
   color: #444;
 }
 .cardBox:hover{
-  background-color: rgb(255, 249, 249);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(248, 237, 237, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(29, 139, 121, 0.2), 0 6px 20px 0 rgba(4, 250, 139, 0.19);
   transition: all .5s;
 }
 .loginBtn{
@@ -213,4 +212,12 @@ section p {
   font-size: 30px;
   font-family: 'Rubik', sans-serif;
   
+}
+
+.fa-search{
+  font-size: 20px;
+  color: #367536;
+  top: -27px;
+  left: -5px;
+  position: relative;
 }
