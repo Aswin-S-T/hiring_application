@@ -10,6 +10,7 @@ import RegisterScreen from "./company/Screens/RegisterScreen";
 import Dashboard from "./company/Screens/Dashboard";
 import LandingPage from "./Screens/LandingPage";
 import AllJobs from "./Screens/AllJobs";
+import JobApply from "./Screens/JobApply";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/company/login" element={<LoginScreen />} />
             <Route path="/company/register" element={<RegisterScreen />} />
             <Route path="/company/dashboard" element={<Dashboard />} />
+            <Route path="/candidate/apply-job" element={<JobApply />} />
           </Routes>
         </main>
       </div>
