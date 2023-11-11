@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const dbUrl =
-  process.env.DATABASE_URL ||
-  "mongodb://localhost:27017/seat-booking-application";
+  "mongodb+srv://aswinsprojects:d5qj4Bh8Z7zFfEOZ@cluster0.0tejhhr.mongodb.net/";
 
 mongoose.set("strictQuery", true);
 

@@ -59,16 +59,16 @@ function Navbar() {
               </a>
             </li>
           </ul>
-          <button class="SigninBtn my-2 my-sm-0" type="submit">
+          {/* <button class="SigninBtn my-2 my-sm-0" type="submit">
             Login
-          </button>
+          </button> */}
           <button
             type="button"
-            class="btn btn-primary"
+            class="SigninBtn"
             data-toggle="modal"
             data-target="#staticBackdrop"
           >
-            Launch static backdrop modal
+            Login
           </button>
 
           <div
@@ -111,7 +111,9 @@ function Navbar() {
                       className="form-control w-100"
                       placeholder="Email"
                     />
-                    <button type="submit" className="mt-4 submitBtn">Login</button>
+                    <button type="submit" className="mt-4 submitBtn">
+                      Login
+                    </button>
                     <br />
                     <div className="mt-3">
                       <a>Create new Account?</a>
