@@ -50,7 +50,10 @@ function Navbar() {
             aria-label="Search"
           /> */}
           <ul class="navbar-nav">
-            <li class="nav-item active" style={{left:"-20px",position:"relative"}}>
+            <li
+              class="nav-item active"
+              style={{ left: "-20px", position: "relative" }}
+            >
               <a class="nav-link" href="#">
                 Login <span class="sr-only">(current)</span>
               </a>
@@ -59,6 +62,67 @@ function Navbar() {
           <button class="SigninBtn my-2 my-sm-0" type="submit">
             Login
           </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#staticBackdrop"
+          >
+            Launch static backdrop modal
+          </button>
+
+          <div
+            class="modal fade"
+            id="staticBackdrop"
+            data-backdrop="static"
+            data-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title text-center" id="staticBackdropLabel">
+                    User Login
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <p>Email</p>
+                    <input
+                      type="email"
+                      className="form-control w-100"
+                      placeholder="Email"
+                    />
+                    <br />
+                    <br />
+                    <p>Password</p>
+                    <input
+                      type="password"
+                      className="form-control w-100"
+                      placeholder="Email"
+                    />
+                    <button type="submit" className="mt-4 submitBtn">Login</button>
+                    <br />
+                    <div className="mt-3">
+                      <a>Create new Account?</a>
+                      <br />
+                      <a>Foreget password?</a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
       </nav>
     </div>
