@@ -62,13 +62,15 @@ header{
   left: 10px;
   position: relative;
   color: darkcyan;
+  font-size: 40px;
 }
 .login-screen input{
-  width: 100%;
+  width: 70%;
   border: none;
   border-bottom: 3px solid darkcyan;
   outline: none;
   background-color: white;
+  padding: 7px;
 }
 .login-screen form p{
   top: 10px;
@@ -79,7 +81,7 @@ header{
   font-size: 20px;
 }
 .login-screen form button{
-  width: 100%;
+  width: 70%;
   margin-top: 40px;
   padding: 9px;
   border: none;
