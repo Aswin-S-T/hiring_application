@@ -236,3 +236,9 @@ div.content p{
 p.jobLocation{
   color: blue;
 }
+.myjobs h4{
+  color: #111;
+  font-size: 25px;
+  font-family: 'Poppins', sans-serif;
+ 
+}

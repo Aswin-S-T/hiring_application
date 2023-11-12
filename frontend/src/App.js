@@ -11,6 +11,7 @@ import Dashboard from "./company/Screens/Dashboard";
 import LandingPage from "./Screens/LandingPage";
 import AllJobs from "./Screens/AllJobs";
 import JobApply from "./Screens/JobApply";
+import MyJobs from "./Screens/MyJobs";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/company/register" element={<RegisterScreen />} />
             <Route path="/company/dashboard" element={<Dashboard />} />
             <Route path="/candidate/apply-job" element={<JobApply />} />
+            <Route path="/myjobs" element={<MyJobs />} />
           </Routes>
         </main>
       </div>

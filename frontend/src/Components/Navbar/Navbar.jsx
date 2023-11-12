@@ -32,8 +32,8 @@ function Navbar() {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/companies">
-                  Companies
+                <a class="nav-link" href="/myjobs">
+                  My jobs
                 </a>
               </li>
               <li class="nav-item">
