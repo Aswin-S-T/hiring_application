@@ -7,6 +7,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import API_ENDPOINTS from "../../Api";
+import { useEffect } from "react";
+import moment from "moment";
 
 const bull = (
   <Box
@@ -18,6 +24,49 @@ const bull = (
 );
 
 export default function JobDetail() {
+  const { id } = useParams();
+  const [job, setJob] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [timeAgo, setTimeAgo] = useState("");
+  const calculateTimeAgo = (createdAt) => {
+    const now = moment();
+    const createdTime = moment(createdAt);
+    const diffInMinutes = now.diff(createdTime, "minutes");
+    const diffInHours = now.diff(createdTime, "hours");
+    const diffInDays = now.diff(createdTime, "days");
+
+    if (diffInMinutes < 60) {
+      setTimeAgo(
+        `${diffInMinutes} minute${diffInMinutes !== 1 ? "s" : ""} ago`
+      );
+    } else if (diffInHours < 24) {
+      setTimeAgo(`${diffInHours} hour${diffInHours !== 1 ? "s" : ""} ago`);
+    } else {
+      setTimeAgo(`${diffInDays} day${diffInDays !== 1 ? "s" : ""} ago`);
+    }
+  };
+
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        setLoading(true);
+        let res = await axios.get(API_ENDPOINTS.getJobDetails + `/${id}`);
+
+        if (res && res.data) {
+          setLoading(false);
+          let job = res?.data?.data;
+          let time = calculateTimeAgo(job?.createdAt);
+          let updatedJob = { ...job, time };
+          setJob(job);
+          console.log("JOB------------", res?.data?.data);
+        }
+      };
+      fetchData();
+    } catch (error) {
+      setError(true);
+    }
+  }, []);
   return (
     <div className="mt-5">
       <Card sx={{ minWidth: 275 }}>
@@ -25,36 +74,38 @@ export default function JobDetail() {
           <Typography sx={{ fontSize: 14 }} color="green" gutterBottom>
             New
           </Typography>
+          <p style={{ color: "red" }}>Posted {timeAgo}</p>
           <Typography variant="h5" component="div">
-            MERN Stack Developer
+            {job?.jobTitle}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Urgent Hiring
+            {job?.company}
           </Typography>
           <Typography variant="body2">
-            What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
-            printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled it to make a type
-            specimen book. It has survived not only five centuries, but also the
-            leap into electronic typesetting, remaining essentially unchanged.
-            It was popularised in the 1960s with the release of Letraset sheets
-            containing Lorem Ipsum passages, and more recently with desktop
-            publishing software like Aldus PageMaker including versions of Lorem
-            Ipsum.
+            {job?.description}
             <br />
             {'"a benevolent smile"'}
           </Typography>
           <br />
           <div>
+            <h5>Salary : {job?.salary}</h5>
+            <h5>Location : {job?.location}</h5>
+            <h5>Education : {job?.education}</h5>
+            <h5>Expericence Level : {job?.experienceLevel}</h5>
             <h4>Skills Required</h4>
             <div className="mt-4">
               <Stack direction="row" spacing={1}>
-                <Chip label="Chip Filled" />
-                <Chip label="Chip Outlined" variant="outlined" />
+                {job?.skillsRequired &&
+                  job?.skillsRequired.length > 0 &&
+                  job?.skillsRequired.map((skill) => (
+                    <>
+                      <Chip label={skill} />
+                    </>
+                  ))}
               </Stack>
             </div>
           </div>
+
           <div className="mt-3">
             <button className="loginBtn">Login to Apply</button>
           </div>

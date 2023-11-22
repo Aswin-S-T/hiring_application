@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import "./AllJob.css";
 import OutlinedCard from "../Components/Card/Card";
+import axios from "axios";
+import API_ENDPOINTS from "../Api";
+import Loader from "../Components/Loader";
+
 function AllJobs() {
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        setLoading(true);
+        let res = await axios.get(API_ENDPOINTS.getAllJobs);
+
+        if (res && res.data) {
+          setLoading(false);
+          setJobs(res?.data?.data);
+        }
+      };
+      fetchData();
+    } catch (error) {
+      setError(true);
+    }
+  }, []);
   return (
     <div style={{ backgroundColor: "whitesmoke" }}>
       <Navbar />
@@ -218,7 +241,11 @@ function AllJobs() {
                 </div>
                 <div class="content col-md-9">
                   <div>
-                    <input type="search" className="form-control" placeholder="Search job" />
+                    <input
+                      type="search"
+                      className="form-control"
+                      placeholder="Search job"
+                    />
                     <i className="fa fa-search" style={{ float: "right" }}></i>
                   </div>
                   <div class="d-flex justify-content-between border-bottom align-items-center mt-2">
@@ -286,8 +313,12 @@ function AllJobs() {
                       </div>
                     </div>
                   </div>
-                  <div class="row " style={{ marginLeft: "10px" }}>
-                    <OutlinedCard />
+                  <div class="row" style={{ marginLeft: "10px" }}>
+                    {loading ? (
+                      <Loader class="text-center" />
+                    ) : (
+                      <OutlinedCard data={jobs} />
+                    )}
                   </div>
                 </div>
               </div>

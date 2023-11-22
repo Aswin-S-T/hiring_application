@@ -23,7 +23,7 @@ function App() {
         <main className="">
           <Routes>
             <Route path="/listjob" element={<HomeScreen />} />
-            <Route path="/job" element={<JobDetailsPage />} />
+            <Route path="/job/:id" element={<JobDetailsPage />} />
             <Route path="/" element={<LandingPage />} />
             <Route path="/alljobs" element={<AllJobs />} />
             {/* Company Routes */}
