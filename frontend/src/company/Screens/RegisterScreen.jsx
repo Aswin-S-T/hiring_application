@@ -1,7 +1,18 @@
 import React, { useState } from "react";
 
 function RegisterScreen() {
-  const [role, setRole] = useState("candidate");
+  const [role, setRole] = useState("Candidate");
+  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleCandidateLogin = async (e) => {
+    e.preventDefault();
+    console.log("SUBMIT CALLED");
+  };
+
   return (
     <div>
       <div className="login-screen">
@@ -53,17 +64,23 @@ function RegisterScreen() {
                 </>
               ) : (
                 <>
-                  <form className="mt-4">
+                  <form className="mt-4" onSubmit={handleCandidateLogin}>
                     <p>First Name</p>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
                     <br />
                     <br />
                     <p>Last Name</p>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
                     <br />
                     <br />
                     <p>Email Address</p>
-                    <input type="email" />
+                    <input type="email"  onChange={(e) => setEmail(e.target.value)}/>
                     <br />
                     <br />
                     <p>Contact Number</p>

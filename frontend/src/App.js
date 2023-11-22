@@ -27,8 +27,8 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/alljobs" element={<AllJobs />} />
             {/* Company Routes */}
-            <Route path="/company/login" element={<LoginScreen />} />
-            <Route path="/company/register" element={<RegisterScreen />} />
+            <Route path="/login" element={<LoginScreen />} />
+            <Route path="/register" element={<RegisterScreen />} />
             <Route path="/company/dashboard" element={<Dashboard />} />
             <Route path="/candidate/apply-job" element={<JobApply />} />
             <Route path="/myjobs" element={<MyJobs />} />

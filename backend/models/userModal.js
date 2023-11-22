@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema(
   {
-    userName: { type: String },
     firstName: { type: String },
     lastName: { type: String },
     email: { type: String, required: true },
+    contact: { type: String, required: true },
     password: { type: String, required: true },
     isActivated: { type: Boolean, default: true },
     role: { type: String, default: "Candidate" },
@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
     skills: [],
     experience: [],
     about: { type: String },
-    subscribed: { Boolean, default: false },
+    subscribed: { type: Boolean, default: false },
     profileImage: {
       type: String,
       default:
