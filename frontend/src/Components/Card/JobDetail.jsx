@@ -111,7 +111,7 @@ export default function JobDetail() {
           </div>
         </CardContent>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <Button size="small">Learn More..</Button>
         </CardActions>
       </Card>
     </div>
