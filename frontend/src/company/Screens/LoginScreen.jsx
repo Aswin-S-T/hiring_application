@@ -8,10 +8,6 @@ const LoginForm = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-
-
-  
-
   const validateEmail = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -50,6 +46,10 @@ const LoginForm = () => {
             title: "Success!",
             text: "Operation completed successfully.",
           }).then(() => {
+            localStorage.setItem(
+              "userData",
+              JSON.stringify(response?.data?.data)
+            );
             window.location.href = "/alljobs";
           });
         } else {

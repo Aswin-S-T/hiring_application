@@ -29,6 +29,10 @@ export default function JobDetail() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [timeAgo, setTimeAgo] = useState("");
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
+
   const calculateTimeAgo = (createdAt) => {
     const now = moment();
     const createdTime = moment(createdAt);
@@ -59,7 +63,6 @@ export default function JobDetail() {
           let time = calculateTimeAgo(job?.createdAt);
           let updatedJob = { ...job, time };
           setJob(job);
-          console.log("JOB------------", res?.data?.data);
         }
       };
       fetchData();
@@ -67,6 +70,15 @@ export default function JobDetail() {
       setError(true);
     }
   }, []);
+
+  const applyJob = () => {
+    window.location.href = `/candidate/apply-job`;
+  };
+
+  const login = () => {
+    window.location.href = `/login`;
+  };
+
   return (
     <div className="mt-5">
       <Card sx={{ minWidth: 275 }}>
@@ -107,7 +119,13 @@ export default function JobDetail() {
           </div>
 
           <div className="mt-3">
-            <button className="loginBtn">Login to Apply</button>
+            {userData ? (
+              <button className="loginBtn" onClick={() => applyJob()}>
+                Apply Now
+              </button>
+            ) : (
+              <button className="loginBtn">Login to Apply</button>
+            )}
           </div>
         </CardContent>
         <CardActions>
