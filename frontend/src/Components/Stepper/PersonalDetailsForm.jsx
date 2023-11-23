@@ -8,7 +8,7 @@ PersonalDetailsForm.propTypes = {
   updateFormData: PropTypes.func.isRequired,
 };
 
-function PersonalDetailsForm({updateFormData}) {
+function PersonalDetailsForm({ updateFormData }) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -47,15 +47,15 @@ function PersonalDetailsForm({updateFormData}) {
       console.error("Error uploading file:", error.message);
     }
   };
-
-  const handleSubmit = (e) => {
+  const [disableBtn, setDisable] = useState(false);
+  const handleSubmitPersonalDetails = (e) => {
     e.preventDefault();
-    updateFormData("personalDetails", {
+    let data = {
       fullName,
       email,
       phone,
       address,
-      resume,
+      resume: uploadedFilename,
       education,
       workExperience,
       skills,
@@ -63,7 +63,10 @@ function PersonalDetailsForm({updateFormData}) {
       availability,
       references,
       portfolio,
-    });
+    };
+    localStorage.setItem("personal-details", JSON.stringify(data));
+    console.log("DATA-----------", data);
+    setDisable(true);
   };
   return (
     <div className="container-fluid p-5">
@@ -71,7 +74,7 @@ function PersonalDetailsForm({updateFormData}) {
         PersonalDetailsForm
       </h2>
       <div className="card-lg p-4">
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="row">
             <div className="col-md-6">
               <label>Full Name:</label>
@@ -126,7 +129,11 @@ function PersonalDetailsForm({updateFormData}) {
               <button onClick={handleUpload} className="btn btn-success">
                 Upload
               </button>
-              {uploadedFilename && <p style={{color:"#700c93"}}>File uploaded: {uploadedFilename}</p>}
+              {uploadedFilename && (
+                <p style={{ color: "#700c93" }}>
+                  File uploaded: {uploadedFilename}
+                </p>
+              )}
             </div>
             <div className="col-md-6">
               <label>Education:</label>
@@ -188,6 +195,15 @@ function PersonalDetailsForm({updateFormData}) {
                 value={portfolio}
                 onChange={(e) => setPortfolio(e.target.value)}
               />
+            </div>
+            <div className="ml-auto">
+              <button
+                disabled={disableBtn}
+                className="btn btn-primary mt-5"
+                onClick={handleSubmitPersonalDetails}
+              >
+                Save
+              </button>
             </div>
           </div>
         </form>

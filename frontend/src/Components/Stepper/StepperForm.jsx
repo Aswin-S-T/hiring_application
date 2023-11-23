@@ -4,9 +4,14 @@ import "./StepperForm.css";
 import PersonalDetailsForm from "./PersonalDetailsForm";
 import AdditionalInformationForm from "./AdditionalInformationForm";
 import JobAppliedMessage from "../MessageBox/JobAppliedMessage";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import API_ENDPOINTS from "../../Api";
+import Swal from "sweetalert2";
 
 function StepperForm() {
   const [activeStep, setActiveStep] = useState(0);
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     personalDetails: {},
     additionalInformation: {},
@@ -27,16 +32,33 @@ function StepperForm() {
     setActiveStep(activeStep - 1);
   };
 
-  const handleFinalSubmit = () => {
-    // Combine all form data and send it to the server
-    const allFormData = {
-      ...formData.personalDetails,
-      ...formData.additionalInformation,
+  const handleFinalSubmit = async () => {
+    let pDetails = JSON.parse(localStorage.getItem("personal-details"));
+    let aDetails = JSON.parse(localStorage.getItem("additionalDetails"));
+    let finalData = {
+      jobId: id,
+      ...pDetails,
+      ...aDetails,
     };
-
-    // Call your API to save the data on the server
-    // Example: axios.post('/api/submitFormData', allFormData)
-    console.log("Form submitted:", allFormData);
+    await axios
+      .post(API_ENDPOINTS.applyJob, { job: finalData })
+      .then((resp) => {
+        if (resp && resp.status == 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: "Job applied successfully.",
+          }).then(() => {
+            window.location.href = "/alljobs";
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: "Something went wrong.",
+          });
+        }
+      });
   };
 
   const getStepName = (step) => {
@@ -65,7 +87,8 @@ function StepperForm() {
       case 2:
         return (
           <div className="card-lg">
-            <JobAppliedMessage />
+            {/* <JobAppliedMessage /> */}
+            <h2 className="text-center">All the data iam given is correct</h2>
           </div>
         );
       default:
@@ -88,7 +111,12 @@ function StepperForm() {
             <button
               onClick={() => setActiveStep(activeStep + 1)}
               className="btn btn-success"
-              style={{ float: "right" }}
+              style={{
+                float: "right",
+                left: "-130px",
+                top: "-111px",
+                position: "relative",
+              }}
             >
               Next
             </button>

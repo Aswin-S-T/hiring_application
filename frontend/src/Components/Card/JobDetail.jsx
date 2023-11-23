@@ -72,7 +72,7 @@ export default function JobDetail() {
   }, []);
 
   const applyJob = () => {
-    window.location.href = `/candidate/apply-job`;
+    window.location.href = `/candidate/apply-job/${id}`;
   };
 
   const login = () => {

@@ -3,6 +3,7 @@ const {
   listAllJobs,
   getJobDetails,
   uploadResume,
+  applyJob,
 } = require("../../controllers/candidate/candidateController");
 const { data } = require("../../data");
 
@@ -16,8 +17,6 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
-    console.log("BODY----------", req.body);
-    console.log("FILE-----------", file);
     const userId = req.body.userId;
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     const filename = `${file.fieldname}-${uniqueSuffix}${path.extname(
@@ -48,10 +47,15 @@ candidateRouter.post("/upload-resume", upload.single("resume"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: "No file uploaded." });
   }
-  console.log("REQ.BODY222222222222", req.body.userId);
   const { filename } = req.file;
   uploadResume(filename, req.body.userId);
   return res.json({ filename });
+});
+
+candidateRouter.post("/apply-job", (req, res) => {
+  applyJob(req.body.job).then((result) => {
+    res.send(result);
+  });
 });
 
 module.exports = candidateRouter;

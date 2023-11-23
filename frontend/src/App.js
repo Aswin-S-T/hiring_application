@@ -30,7 +30,7 @@ function App() {
             <Route path="/login" element={<LoginScreen />} />
             <Route path="/register" element={<RegisterScreen />} />
             <Route path="/company/dashboard" element={<Dashboard />} />
-            <Route path="/candidate/apply-job" element={<JobApply />} />
+            <Route path="/candidate/apply-job/:id" element={<JobApply />} />
             <Route path="/myjobs" element={<MyJobs />} />
           </Routes>
         </main>

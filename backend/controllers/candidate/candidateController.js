@@ -1,6 +1,8 @@
 const { successResponse, errorResponse } = require("../../constants/response");
+const AppliedJobs = require("../../models/appliedJobs");
 const Jobs = require("../../models/jobModal");
 const User = require("../../models/userModal");
+const { sendEmailNotification } = require("../../utils/utils");
 
 module.exports = {
   listAllJobs: () => {
@@ -40,6 +42,27 @@ module.exports = {
               .then(() => resolve())
               .catch((error) => reject(error));
           }
+        }
+      });
+    });
+  },
+  applyJob: (data) => {
+    return new Promise((resolve, reject) => {
+      AppliedJobs.create(data).then(async (result) => {
+        if (result) {
+          let jobData = await Jobs.findOne({ _id: data.jobId });
+          const updatedUser = await User.findOneAndUpdate(
+            { email: data.email },
+            { $push: { appliedJobs: result?._id } },
+            { new: true }
+          ).then(async () => {
+            await sendEmailNotification(
+              data.email,
+              jobData?.jobTitle,
+              "Your application submitted successfullyyy..."
+            );
+            resolve(successResponse);
+          });
         }
       });
     });
