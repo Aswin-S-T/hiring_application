@@ -16,8 +16,16 @@ const VerticalTabs = () => {
     <>
       <div>
         <Tabs className="vertical-tabs">
-          <TabList className="vertical-tab-list">
-            <Tab className="vertical-tab">
+          <TabList className="vertical-tab-list mt-5">
+            <div className="container">
+              <img
+                src={process.env.PUBLIC_URL + "/brand1.png"}
+                alt="Example"
+                className=" w-50"
+                style={{left:"35px",position:"relative"}}
+              />
+            </div>
+            <Tab className="vertical-tab mt-4">
               <GridViewIcon /> Dashboard
             </Tab>
             <Tab className="vertical-tab">

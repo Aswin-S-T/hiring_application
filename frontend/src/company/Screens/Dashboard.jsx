@@ -5,11 +5,9 @@ import PrimarySearchAppBar from "../../Components/Header/Header";
 function Dashboard() {
   return (
     <div>
-      <header>
-        <PrimarySearchAppBar />
-      </header>
+      <header>{/* <PrimarySearchAppBar /> */}</header>
       <main className="mt-5">
-        <div style={{ marginTop: "67px" }}>
+        <div style={{ top: "0px", position: "absolute" }}>
           <VerticalTabs />
         </div>
       </main>
