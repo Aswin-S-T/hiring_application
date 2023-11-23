@@ -22,7 +22,7 @@ function Navbar() {
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/">
                   Home <span class="sr-only">(current)</span>
                 </a>
               </li>
@@ -54,7 +54,7 @@ function Navbar() {
               class="nav-item active"
               style={{ left: "-20px", position: "relative" }}
             >
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="/login">
                 Login <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -62,14 +62,14 @@ function Navbar() {
           {/* <button class="SigninBtn my-2 my-sm-0" type="submit">
             Login
           </button> */}
-          <button
+          {/* <button
             type="button"
             class="SigninBtn"
             data-toggle="modal"
             data-target="#staticBackdrop"
           >
             Login
-          </button>
+          </button> */}
 
           <div
             class="modal fade"

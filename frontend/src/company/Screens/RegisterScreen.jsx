@@ -96,7 +96,7 @@ function RegisterScreen() {
                 </>
               )}
               <br />
-              <a href="/company/login">Already have an account ?</a>
+              <a href="/login">Already have an account ?</a>
               <br />
             </div>
           </div>

@@ -23,7 +23,7 @@ module.exports = {
       let { contact, email } = userData;
       contact = await User.findOne({ contact });
       email = await User.findOne({ email });
-      if (username || email) {
+      if (email) {
         errorResponse.message =
           "User already exists with this usename or email";
         resolve(errorResponse);
@@ -31,7 +31,7 @@ module.exports = {
         let bcryptedPassword = await bcrypt.hash(userData.password, 10);
 
         userData.password = bcryptedPassword;
-        const token = jwt.sign({ username, email }, JWT_SECRET, {
+        const token = jwt.sign({ email }, JWT_SECRET, {
           expiresIn: "2h",
         });
         userData.token = token;

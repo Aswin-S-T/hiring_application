@@ -114,7 +114,7 @@ const LoginForm = () => {
               <button type="submit">Login</button>
             </form>
             <br />
-            <a href="/company/register">Create new Account ?</a>
+            <a href="/register">Create new Account ?</a>
             <br />
             <a>Foreget password ?</a>
           </div>
