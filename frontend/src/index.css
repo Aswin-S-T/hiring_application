@@ -7,7 +7,9 @@
 .navbar{
   background-color: white;
 }
-
+ul li {
+  list-style: none;
+}
 header{
   background-color: #669371;
   top: 0px;
