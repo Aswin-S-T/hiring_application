@@ -284,3 +284,10 @@ div.adv-card{
   padding: 40px;
   border-radius: 15px;
 }
+.error-box{
+  background-color: #ffdddd;
+  color: white;
+  padding: 15px;
+  border-radius: 15px;
+  margin-top: 15px;
+}
