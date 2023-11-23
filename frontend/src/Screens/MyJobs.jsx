@@ -1,11 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import OutlinedCard from "../Components/Card/Card";
+import axios from "axios";
+import API_ENDPOINTS from "../Api";
+import Loader from "../Components/Loader";
 
 function MyJobs() {
   const [savedJobs, setSavedJobs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [myJobs, setMyJobs] = useState([]);
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
+
+  useEffect(() => {
+    if (userData) {
+      setLoading(true);
+      const fetchData = async () => {
+        let uid = userData._id;
+
+        await axios.get(API_ENDPOINTS.myJobs + `/${uid}`).then((result) => {
+          if (result && result.status == 200) {
+            setMyJobs(result.data.data);
+            setLoading(false);
+          }
+        });
+      };
+      fetchData();
+    }
+  }, []);
+
   return (
     <div className="myjobs">
       <Navbar />
@@ -21,7 +47,7 @@ function MyJobs() {
 
               <TabPanel>
                 <div>
-                  <OutlinedCard />
+                  {loading ? <Loader /> : <OutlinedCard data={myJobs} />}
                 </div>
               </TabPanel>
               <TabPanel>

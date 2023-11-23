@@ -4,6 +4,7 @@ const {
   getJobDetails,
   uploadResume,
   applyJob,
+  getMyJobs,
 } = require("../../controllers/candidate/candidateController");
 const { data } = require("../../data");
 
@@ -54,6 +55,12 @@ candidateRouter.post("/upload-resume", upload.single("resume"), (req, res) => {
 
 candidateRouter.post("/apply-job", (req, res) => {
   applyJob(req.body.job).then((result) => {
+    res.send(result);
+  });
+});
+
+candidateRouter.get("/my-jobs/:id", (req, res) => {
+  getMyJobs(req.params.id).then((result) => {
     res.send(result);
   });
 });

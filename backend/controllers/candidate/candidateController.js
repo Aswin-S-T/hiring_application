@@ -67,4 +67,31 @@ module.exports = {
       });
     });
   },
+  getMyJobs: (userId) => {
+    return new Promise((resolve, reject) => {
+      let appliedJobs = [];
+      let userDetails = User.findOne({ _id: userId }).then(async (user) => {
+        if (user) {
+          appliedJobs = user.appliedJobs;
+          await AppliedJobs.find({ _id: { $in: appliedJobs } }).then(
+            async (jobs) => {
+              if (jobs.length > 0) {
+                let ids = [];
+                for (let i = 0; i < jobs.length; i++) {
+                  const e = jobs[i];
+                  ids.push(e.jobId);
+                }
+                ids = [...new Set(ids)];
+
+                await Jobs.find({ _id: { $in: ids } }).then((yourJobs) => {
+                  successResponse.data = yourJobs;
+                });
+              }
+            }
+          );
+          resolve(successResponse);
+        }
+      });
+    });
+  },
 };
