@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import API_ENDPOINTS from "../../Api";
+import axios from "axios";
 
 function PersonalDetailsForm() {
   const [fullName, setFullName] = useState("");
@@ -13,6 +15,33 @@ function PersonalDetailsForm() {
   const [availability, setAvailability] = useState("");
   const [references, setReferences] = useState("");
   const [portfolio, setPortfolio] = useState("");
+  const [uploadedFilename, setUploadedFilename] = useState("");
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
+
+  const handleFileChange = (e) => {
+    setResume(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("resume", resume);
+      formData.append("userId", userData?._id); // Directly append userId to formData
+
+      const response = await axios.post(API_ENDPOINTS.uploadResume, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setUploadedFilename(response.data.filename);
+    } catch (error) {
+      console.error("Error uploading file:", error.message);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", {
@@ -32,7 +61,9 @@ function PersonalDetailsForm() {
   };
   return (
     <div className="container-fluid p-5">
-      <h2 className="form-title" style={{left:"28px",position:"relative"}}>PersonalDetailsForm</h2>
+      <h2 className="form-title" style={{ left: "28px", position: "relative" }}>
+        PersonalDetailsForm
+      </h2>
       <div className="card-lg p-4">
         <form onSubmit={handleSubmit}>
           <div className="row">
@@ -83,9 +114,13 @@ function PersonalDetailsForm() {
                 type="file"
                 className="form-control w-100"
                 accept=".pdf,.doc,.docx"
-                onChange={(e) => setResume(e.target.files[0])}
+                onChange={handleFileChange}
                 required
               />
+              <button onClick={handleUpload} className="btn btn-success">
+                Upload
+              </button>
+              {uploadedFilename && <p style={{color:"#700c93"}}>File uploaded: {uploadedFilename}</p>}
             </div>
             <div className="col-md-6">
               <label>Education:</label>

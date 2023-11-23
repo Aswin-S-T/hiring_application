@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema(
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx9tjaExsY-srL4VsHNE_OKGVCJ-eIFNBktw&usqp=CAU",
     },
     appliedJobs: [],
+    resume: { type: String },
   },
   {
     timestamps: true,
