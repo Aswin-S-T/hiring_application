@@ -1,6 +1,21 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-function AdditionalInformationForm() {
+// Add PropTypes for updateFormData
+AdditionalInformationForm.propTypes = {
+  updateFormData: PropTypes.func.isRequired,
+};
+
+function AdditionalInformationForm({ updateFormData }) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // ... (your existing code)
+
+    // Call updateFormData to update the parent state
+    updateFormData("additionalInformation", {
+      test: "testdata",
+    });
+  };
   return (
     <div>
       <div className="container-fluid p-5">

@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import API_ENDPOINTS from "../../Api";
 import axios from "axios";
+import PropTypes from "prop-types";
 
-function PersonalDetailsForm() {
+// Add PropTypes for updateFormData
+PersonalDetailsForm.propTypes = {
+  updateFormData: PropTypes.func.isRequired,
+};
+
+function PersonalDetailsForm({updateFormData}) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -44,7 +50,7 @@ function PersonalDetailsForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", {
+    updateFormData("personalDetails", {
       fullName,
       email,
       phone,
