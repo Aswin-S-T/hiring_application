@@ -364,7 +364,7 @@ const MultistepForm = () => {
   return (
     <div className="mt-5">
       <div className="container-fluid">
-        <h2 style={{ fontWeight: "bold" }}>Create a new Job</h2>
+        <h2 style={{ fontWeight: "bold" }}>Create new Job</h2>
         <Stepper activeStep={activeStep} alternativeLabel className="mt-5">
           <Step key="Personal Info">
             <StepLabel>Personal Info</StepLabel>
