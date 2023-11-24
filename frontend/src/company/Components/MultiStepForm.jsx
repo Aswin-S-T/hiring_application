@@ -7,6 +7,9 @@ import {
   Typography,
   TextField,
 } from "@material-ui/core";
+import axios from "axios";
+import API_ENDPOINTS from "../../Api";
+import Swal from "sweetalert2";
 
 const MultistepForm = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -135,10 +138,27 @@ const MultistepForm = () => {
     return stepErrors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const finalErrors = validateStep(activeStep);
     if (Object.keys(finalErrors).length === 0) {
       console.log(formData);
+      await axios.post(API_ENDPOINTS.postJob, formData).then((resp) => {
+        if (resp.status == 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: "Job added successfully.",
+          }).then(() => {
+            window.location.href = "/company/dashboard";
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: "Something went wrong.",
+          });
+        }
+      });
       // Perform submit logic here
       setFormData({
         jobTitle: "",
@@ -343,56 +363,63 @@ const MultistepForm = () => {
 
   return (
     <div className="mt-5">
-      <Stepper activeStep={activeStep} alternativeLabel>
-        <Step key="Personal Info">
-          <StepLabel>Personal Info</StepLabel>
-        </Step>
-        <Step key="Contact Info">
-          <StepLabel>Contact Info</StepLabel>
-        </Step>
-        <Step key="Additional Info">
-          <StepLabel>Additional Info</StepLabel>
-        </Step>
-      </Stepper>
-      <div>
-        {activeStep === 3 ? (
-          <div>
-            <Typography>All steps completed</Typography>
-            <Button onClick={handleSubmit}>Submit</Button>
-          </div>
-        ) : (
-          <div>
-            {getStepContent(activeStep)}
-            <div
-              style={{
-                float: "right",
-                top: "-50px",
-                left: "-20px",
-                position: "relative",
-              }}
-            >
-              <Button disabled={activeStep === 0} onClick={handleBack}>
-                Back
-              </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === 2 ? "Finish" : "Next"}
-              </Button>
+      <div className="container-fluid">
+        <h2 style={{ fontWeight: "bold" }}>Create a new Job</h2>
+        <Stepper activeStep={activeStep} alternativeLabel className="mt-5">
+          <Step key="Personal Info">
+            <StepLabel>Personal Info</StepLabel>
+          </Step>
+          <Step key="Contact Info">
+            <StepLabel>Contact Info</StepLabel>
+          </Step>
+          <Step key="Additional Info">
+            <StepLabel>Additional Info</StepLabel>
+          </Step>
+        </Stepper>
+        <div>
+          {activeStep === 3 ? (
+            <div>
+              <Typography>All steps completed</Typography>
+              <Button onClick={handleSubmit}>Submit</Button>
             </div>
+          ) : (
+            <div>
+              {getStepContent(activeStep)}
+              <div
+                style={{
+                  float: "right",
+                  top: "-50px",
+                  left: "-20px",
+                  position: "relative",
+                }}
+              >
+                <Button disabled={activeStep === 0} onClick={handleBack}>
+                  Back
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNext}
+                >
+                  {activeStep === 2 ? "Finish" : "Next"}
+                </Button>
+              </div>
 
-            {Object.keys(errors).length > 0 && (
-              <>
-                <div className="error-box">
-                  <h4 style={{ color: "red" }}>Instructions</h4>
-                  {Object.keys(errors).map((key) => (
-                    <Typography key={key} color="error">
-                      {errors[key]}
-                    </Typography>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        )}
+              {Object.keys(errors).length > 0 && (
+                <>
+                  <div className="error-box">
+                    <h4 style={{ color: "red" }}>Instructions</h4>
+                    {Object.keys(errors).map((key) => (
+                      <Typography key={key} color="error">
+                        {errors[key]}
+                      </Typography>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
