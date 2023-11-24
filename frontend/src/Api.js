@@ -9,6 +9,7 @@ const urls = {
 
   // Company routes
   postJob: `api/company/add-job`,
+  postedJobs: `api/company/my-jobs`,
   // end Company routes
 };
 
@@ -21,6 +22,7 @@ const API_ENDPOINTS = {
 
   // Company routes
   postJob: `${BASE_URL}/${urls.postJob}`,
+  postedJobs: `${BASE_URL}/${urls.postedJobs}`,
   // End company routes
 };
 

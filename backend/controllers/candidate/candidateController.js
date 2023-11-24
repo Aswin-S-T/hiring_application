@@ -53,7 +53,7 @@ module.exports = {
           let jobData = await Jobs.findOne({ _id: data.jobId });
           const updatedUser = await User.findOneAndUpdate(
             { email: data.email },
-            { $push: { appliedJobs: result?._id } },
+            { $push: { appliedJobs: jobData?._id } },
             { new: true }
           ).then(async () => {
             await sendEmailNotification(

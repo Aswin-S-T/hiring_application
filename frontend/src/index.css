@@ -291,3 +291,28 @@ div.adv-card{
   border-radius: 15px;
   margin-top: 15px;
 }
+button.prevBtn{
+  background-color: rgb(13, 204, 218);
+  color: white;
+  padding: 6px;
+  border: none;
+  border-radius: 7px;
+}
+
+button.nextBtn{
+  background-color: rgb(13, 218, 122);
+  color: white;
+  padding: 6px;
+  border: none;
+  border-radius: 7px;
+}
+
+
+
+button.page-list-btn{
+  background-color: lightgray;
+  color: #111;
+  padding: 6px;
+  border: none;
+  border-radius: 7px;
+}
