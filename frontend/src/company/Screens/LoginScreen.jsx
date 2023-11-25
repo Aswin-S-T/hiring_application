@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import API_ENDPOINTS from "../../Api";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -18,18 +19,6 @@ const LoginForm = () => {
     }
   };
 
-  // const validatePassword = () => {
-  //   const passwordRegex = /^(?=.*\d)(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
-
-  //   if (!passwordRegex.test(password)) {
-  //     setPasswordError(
-  //       "Password should have at least 8 characters, one digit, and one uppercase letter"
-  //     );
-  //   } else {
-  //     setPasswordError("");
-  //   }
-  // };
-
   const handleLogin = async (e) => {
     e.preventDefault();
     validateEmail();
@@ -37,31 +26,31 @@ const LoginForm = () => {
       email,
       password,
     };
-    await axios
-      .post(`http://localhost:5000/api/auth/login`, loginData)
-      .then((response) => {
-        if (response.status == 200) {
-          Swal.fire({
-            icon: "success",
-            title: "Success!",
-            text: "Operation completed successfully.",
-          }).then(() => {
-            localStorage.setItem(
-              "userData",
-              JSON.stringify(response?.data?.data)
-            );
+    await axios.post(API_ENDPOINTS.loginAccount, loginData).then((response) => {
+      if (response.status == 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Operation completed successfully.",
+        }).then(() => {
+          if (response.data.data.role == "Candidate") {
             window.location.href = "/alljobs";
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Error!",
-            text: "Something went wrong.",
-          });
-        }
-      });
-    console.log("LOGIN DATA-------------", loginData);
-    // validatePassword();
+          } else {
+            window.location.href = "/company/dashboard";
+          }
+          localStorage.setItem(
+            "userData",
+            JSON.stringify(response?.data?.data)
+          );
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Something went wrong.",
+        });
+      }
+    });
   };
 
   return (
