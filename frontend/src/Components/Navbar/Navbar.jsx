@@ -50,12 +50,33 @@ function Navbar() {
             aria-label="Search"
           /> */}
           <ul class="navbar-nav">
+            <div class="dropdown">
+              <button
+                class="dropdown-toggle"
+                type="button"
+                data-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Account
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="/Login">
+                  Login
+                </a>
+                <a class="dropdown-item" href="/profile">
+                  My Profile
+                </a>
+                <a class="dropdown-item" href="#">
+                  Logout
+                </a>
+              </div>
+            </div>
             <li
               class="nav-item active"
               style={{ left: "-20px", position: "relative" }}
             >
-              <a class="nav-link" href="/login">
-                Login <span class="sr-only">(current)</span>
+              <a class="nav-link" href="#">
+                FAQ <span class="sr-only">(current)</span>
               </a>
             </li>
           </ul>

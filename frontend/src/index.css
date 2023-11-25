@@ -316,3 +316,48 @@ button.page-list-btn{
   border: none;
   border-radius: 7px;
 }
+
+div.profile-image{
+  display: flex;
+  justify-content: center;
+}
+div.profile-image img{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+div.profile-card{
+  background-color: white;
+  border-radius: 10px;
+}
+div.profile-card h5{
+  font-family: 'Poppins', sans-serif;
+  color: #161e4f;
+}
+div.profile-card p{
+  font-family: 'Poppins', sans-serif;
+  color: #8f94b4;
+}
+div.content{
+  font-family: 'Poppins', sans-serif;
+  color: #6d6f7a;
+}
+div.basic-information h5{
+  color: #6d6f7a;
+  font-size: 15px;
+}
+
+div.basic-information h6{
+  color: #111;
+  font-size: 15px;
+  font-weight: bold;
+}
+button.dwnd-btn{
+  padding: 8px;
+  border: none;
+  width: 200px;
+  outline: none;
+  background-color: rgb(147 147 255);
+  color: white;
+}

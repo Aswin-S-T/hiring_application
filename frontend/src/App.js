@@ -12,6 +12,7 @@ import LandingPage from "./Screens/LandingPage";
 import AllJobs from "./Screens/AllJobs";
 import JobApply from "./Screens/JobApply";
 import MyJobs from "./Screens/MyJobs";
+import Profile from "./Screens/Profile";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/company/dashboard" element={<Dashboard />} />
             <Route path="/candidate/apply-job/:id" element={<JobApply />} />
             <Route path="/myjobs" element={<MyJobs />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
       </div>
