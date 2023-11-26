@@ -13,6 +13,7 @@ import AllJobs from "./Screens/AllJobs";
 import JobApply from "./Screens/JobApply";
 import MyJobs from "./Screens/MyJobs";
 import Profile from "./Screens/Profile";
+import EditProfile from "./Screens/candidate/EditProfile";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/candidate/apply-job/:id" element={<JobApply />} />
             <Route path="/myjobs" element={<MyJobs />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
           </Routes>
         </main>
       </div>

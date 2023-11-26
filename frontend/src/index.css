@@ -361,3 +361,12 @@ button.dwnd-btn{
   background-color: rgb(147 147 255);
   color: white;
 }
+/* .stepss{
+  top: -120px;
+  position: relative;
+} */
+
+.information-text{
+  font-family: 'Poppins', sans-serif;
+  color: #0f1953;
+}
