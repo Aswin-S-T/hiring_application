@@ -34,7 +34,8 @@ const LoginForm = () => {
           text: "Operation completed successfully.",
         }).then(() => {
           if (response.data.data.role == "Candidate") {
-            window.location.href = "/alljobs";
+            // window.location.href = "/alljobs";
+            window.location.href = `/edit-profile/${response?.data?.data?._id}`;
           } else {
             window.location.href = "/company/dashboard";
           }
