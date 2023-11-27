@@ -41,13 +41,21 @@ function MyJobs() {
           <div className="mt-4">
             <Tabs>
               <TabList>
-                <Tab>Applied (10)</Tab>
+                <Tab>Applied ({myJobs?.length})</Tab>
                 <Tab>Saved (2)</Tab>
               </TabList>
 
               <TabPanel>
                 <div>
-                  {loading ? <Loader /> : <OutlinedCard data={myJobs} />}
+                  {loading ? (
+                    <Loader />
+                  ) : myJobs.length > 0 ? (
+                    <>
+                      <OutlinedCard data={myJobs} />
+                    </>
+                  ) : (
+                    <p>No jobs applied yet</p>
+                  )}
                 </div>
               </TabPanel>
               <TabPanel>

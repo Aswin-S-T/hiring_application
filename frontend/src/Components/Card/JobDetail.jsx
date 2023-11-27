@@ -13,6 +13,7 @@ import axios from "axios";
 import API_ENDPOINTS from "../../Api";
 import { useEffect } from "react";
 import moment from "moment";
+import Loader from "../Loader";
 
 const bull = (
   <Box
@@ -81,57 +82,63 @@ export default function JobDetail() {
 
   return (
     <div className="mt-5">
-      <Card sx={{ minWidth: 275 }}>
-        <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="green" gutterBottom>
-            New
-          </Typography>
-          <p style={{ color: "red" }}>Posted {timeAgo}</p>
-          <Typography variant="h5" component="div">
-            {job?.jobTitle}
-          </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {job?.company}
-          </Typography>
-          <Typography variant="body2">
-            {job?.description}
-            <br />
-            {'"a benevolent smile"'}
-          </Typography>
-          <br />
-          <div>
-            <h5>Salary : {job?.salary}</h5>
-            <h5>Location : {job?.location}</h5>
-            <h5>Education : {job?.education}</h5>
-            <h5>Expericence Level : {job?.experienceLevel}</h5>
-            <h4>Skills Required</h4>
-            <div className="mt-4">
-              <Stack direction="row" spacing={1}>
-                {job?.skillsRequired &&
-                  job?.skillsRequired.length > 0 &&
-                  job?.skillsRequired.map((skill) => (
-                    <>
-                      <Chip label={skill} />
-                    </>
-                  ))}
-              </Stack>
-            </div>
-          </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography sx={{ fontSize: 14 }} color="green" gutterBottom>
+                New
+              </Typography>
+              <p style={{ color: "red" }}>Posted {timeAgo}</p>
+              <Typography variant="h5" component="div">
+                {job?.jobTitle}
+              </Typography>
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                {job?.company}
+              </Typography>
+              <Typography variant="body2">
+                {job?.description}
+                <br />
+                {'"a benevolent smile"'}
+              </Typography>
+              <br />
+              <div>
+                <h5>Salary : {job?.salary}</h5>
+                <h5>Location : {job?.location}</h5>
+                <h5>Education : {job?.education}</h5>
+                <h5>Expericence Level : {job?.experienceLevel}</h5>
+                <h4>Skills Required</h4>
+                <div className="mt-4">
+                  <Stack direction="row" spacing={1}>
+                    {job?.skillsRequired &&
+                      job?.skillsRequired.length > 0 &&
+                      job?.skillsRequired.map((skill) => (
+                        <>
+                          <Chip label={skill} />
+                        </>
+                      ))}
+                  </Stack>
+                </div>
+              </div>
 
-          <div className="mt-3">
-            {userData ? (
-              <button className="loginBtn" onClick={() => applyJob()}>
-                Apply Now
-              </button>
-            ) : (
-              <button className="loginBtn">Login to Apply</button>
-            )}
-          </div>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Learn More..</Button>
-        </CardActions>
-      </Card>
+              <div className="mt-3">
+                {userData ? (
+                  <button className="loginBtn" onClick={() => applyJob()}>
+                    Apply Now
+                  </button>
+                ) : (
+                  <button className="loginBtn">Login to Apply</button>
+                )}
+              </div>
+            </CardContent>
+            <CardActions>
+              <Button size="small">Learn More..</Button>
+            </CardActions>
+          </Card>
+        </>
+      )}
     </div>
   );
 }

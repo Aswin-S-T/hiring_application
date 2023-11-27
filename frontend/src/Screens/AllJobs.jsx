@@ -317,7 +317,9 @@ function AllJobs() {
                     {loading ? (
                       <Loader class="text-center" />
                     ) : (
-                      <OutlinedCard data={jobs} />
+                     <div className="row">
+                       <OutlinedCard data={jobs} className='w-100' />
+                     </div>
                     )}
                   </div>
                 </div>
