@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import API_ENDPOINTS from "../../Api";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 // Add PropTypes for updateFormData
 PersonalDetailsForm.propTypes = {
@@ -9,6 +11,7 @@ PersonalDetailsForm.propTypes = {
 };
 
 function PersonalDetailsForm({ updateFormData }) {
+  const { id } = useParams();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -25,6 +28,24 @@ function PersonalDetailsForm({ updateFormData }) {
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem("userData"))
   );
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get(API_ENDPOINTS.getProfile + `/${userData?._id}`)
+        .then((resp) => {
+          if (resp && resp.status == 200) {
+            setCurrentUser(resp?.data?.data);
+            let currentData = resp?.data?.data;
+            setFullName(currentData?.firstName + " " + currentData?.lastName);
+            setEmail(currentData?.email);
+            setPhone(currentData?.contact);
+            setWorkExperience(currentData?.yearsOfExp);
+          }
+        });
+    };
+    fetchData();
+  }, []);
 
   const handleFileChange = (e) => {
     setResume(e.target.files[0]);
@@ -145,7 +166,7 @@ function PersonalDetailsForm({ updateFormData }) {
             </div>
 
             <div className="col-md-6">
-              <label>Work Experience:</label>
+              <label>Total Work Experience:</label>
               <textarea
                 className="form-control w-100"
                 value={workExperience}
