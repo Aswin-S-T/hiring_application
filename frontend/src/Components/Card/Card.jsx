@@ -21,7 +21,7 @@ export default function OutlinedCard({ data }) {
   };
 
   return (
-    <Box sx={{ minWidth: 275, width: 800 }} >
+    <Box sx={{ minWidth: 275}} >
       {data &&
         data.length > 0 &&
         data.map((job) => (
