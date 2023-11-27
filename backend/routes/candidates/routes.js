@@ -6,6 +6,7 @@ const {
   applyJob,
   getMyJobs,
   editProfile,
+  getProfile,
 } = require("../../controllers/candidate/candidateController");
 const { data } = require("../../data");
 
@@ -68,6 +69,12 @@ candidateRouter.get("/my-jobs/:id", (req, res) => {
 
 candidateRouter.post("/edit-profile/:id", (req, res) => {
   editProfile(req.params.id, req.body).then((result) => {
+    res.send(result);
+  });
+});
+
+candidateRouter.get("/profile/:id", (req, res) => {
+  getProfile(req.params.id).then((result) => {
     res.send(result);
   });
 });

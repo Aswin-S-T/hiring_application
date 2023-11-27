@@ -119,4 +119,12 @@ module.exports = {
       }
     });
   },
+  getProfile: (userId) => {
+    return new Promise((resolve, reject) => {
+      User.findOne({ _id: userId }).then((result) => {
+        successResponse.data = result;
+        resolve(successResponse);
+      });
+    });
+  },
 };
