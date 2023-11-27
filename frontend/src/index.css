@@ -370,3 +370,8 @@ button.dwnd-btn{
   font-family: 'Poppins', sans-serif;
   color: #0f1953;
 }
+img.thumbnail{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

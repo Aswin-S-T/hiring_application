@@ -35,7 +35,12 @@ const LoginForm = () => {
         }).then(() => {
           if (response.data.data.role == "Candidate") {
             // window.location.href = "/alljobs";
-            window.location.href = `/edit-profile/${response?.data?.data?._id}`;
+            if (response?.data?.data?.experience.length == 0) {
+              window.location.href = `/edit-profile/${response?.data?.data?._id}`;
+            } else {
+              window.location.href = '/alljobs'
+            }
+            
           } else {
             window.location.href = "/company/dashboard";
           }

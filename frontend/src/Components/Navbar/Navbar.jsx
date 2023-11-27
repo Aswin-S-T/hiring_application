@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
 function Navbar() {
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
+
+  const handleLogout = () => {
+    localStorage.removeItem("userData");
+    window.location.href = "/";
+  };
+
   return (
     <div>
       <nav class="navbar navbar-expand-lg navbar-light">
         <div className="container">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="/">
             Hire Me
           </a>
           <button
@@ -52,23 +61,34 @@ function Navbar() {
           <ul class="navbar-nav">
             <div class="dropdown">
               <button
-                class="dropdown-toggle"
+                class="dropdown-toggle btn mt-1"
                 type="button"
                 data-toggle="dropdown"
                 aria-expanded="false"
               >
-                Account
+                {userData && (
+                  <img src={userData?.profileImage} className="thumbnail" />
+                )}
+
+                {userData ? <>{userData.firstName}</> : <>Account</>}
               </button>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="/Login">
-                  Login
-                </a>
-                <a class="dropdown-item" href="/profile">
-                  My Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  Logout
-                </a>
+                {userData ? (
+                  <>
+                    <a class="dropdown-item" href={`/profile/${userData?._id}`}>
+                      My Profile
+                    </a>
+                    <a class="dropdown-item" onClick={handleLogout}>
+                      Logout
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <a class="dropdown-item" href="/Login">
+                      Login
+                    </a>
+                  </>
+                )}
               </div>
             </div>
             <li
