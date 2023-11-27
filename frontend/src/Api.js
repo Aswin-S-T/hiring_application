@@ -6,7 +6,7 @@ const urls = {
   uploadResume: `api/candidate/upload-resume`,
   applyJob: `api/candidate/apply-job`,
   myJobs: `api/candidate/my-jobs`,
-
+  editProfile: `api/candidate/edit-profile`,
   // Auth routes
   register: `api/auth/register`,
   login: "api/auth/login",
@@ -24,7 +24,7 @@ const API_ENDPOINTS = {
   uploadResume: `${BASE_URL}/${urls.uploadResume}`,
   applyJob: `${BASE_URL}/${urls.applyJob}`,
   myJobs: `${BASE_URL}/${urls.myJobs}`,
-
+  editProfile: `${BASE_URL}/${urls.editProfile}`,
   // Auth routes
   createAccount: `${BASE_URL}/${urls.register}`,
   loginAccount: `${BASE_URL}/${urls.login}`,

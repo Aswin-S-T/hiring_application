@@ -4,17 +4,54 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Navbar from "../../Components/Navbar/Navbar";
+import axios from "axios";
+import API_ENDPOINTS from "../../Api";
+import { useParams } from "react-router-dom";
+import { DEFAULT_PROFILE_IMAGE } from "../../constants/url";
+import Swal from "sweetalert2";
 
 const steps = ["Basic Information", "Experience", "Skills"];
-
 const EditProfile = () => {
+  const { id } = useParams();
   const [activeStep, setActiveStep] = useState(0);
+
+  const [fileInputState, setFileInputState] = useState("");
+  const [previewSource, setPreviewSource] = useState("");
+  const [selectedFile, setSelectedFile] = useState();
+  const [base64EncodedImage, setBase65EncodedImage] = useState(null);
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    console.log("FILE------------", file);
+    previewFile(file);
+    setSelectedFile(file);
+    setFileInputState(e.target.value);
+    if (!file) return;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      // handleSubmit(reader.result);
+      console.log("BASE IMAGE-------------", reader?.result);
+    };
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setBase65EncodedImage(reader?.result);
+      setPreviewSource(reader.result);
+    };
+  };
+
+  const [profileImage, setProfileImage] = useState(DEFAULT_PROFILE_IMAGE);
   const [formData, setFormData] = useState({
+    profileImage,
     about: "",
     currentRole: "",
     age: "",
     yearsOfExp: "",
-    phone: "",
+    contact: "",
     cctc: "",
     location: "",
     email: "",
@@ -88,16 +125,34 @@ const EditProfile = () => {
     return Object.keys(formData).indexOf(step) < activeStep;
   };
 
-  const handleSubmit = () => {
-    // Store the current forms in the experience array in formData
-    console.log("IEM LIST-----------", itemList);
+  const handleImageClick = () => {
+    // Trigger the file input
+    document.getElementById("fileInput").click();
+  };
+
+  const handleSubmitFile = () => {};
+
+  const handleSubmit = async (file) => {
     formData.skills = itemList;
     setFormData((prevFormData) => ({
       ...prevFormData,
       experience: forms,
       skills: itemList,
+      profileImage: base64EncodedImage,
     }));
-
+    await axios
+      .post(API_ENDPOINTS.editProfile + `/${id}`, formData)
+      .then((resp) => {
+        if (resp && resp.status == 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: "Successfully updated Profile",
+          }).then(() => {
+            window.location.href = `/profile/${id}`;
+          });
+        }
+      });
     // Handle form submission with formData
     console.log("Form submitted with data:", formData);
   };
@@ -146,6 +201,23 @@ const EditProfile = () => {
                       <div>
                         {activeStep === 0 && (
                           <div className="stepss">
+                            <div>
+                              <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx9tjaExsY-srL4VsHNE_OKGVCJ-eIFNBktw&usqp=CAU"
+                                className="profile-image"
+                              />
+                              <i
+                                className="fa fa-camera"
+                                style={{ fontSize: "25px" }}
+                                onClick={handleImageClick}
+                              ></i>
+                              <input
+                                type="file"
+                                id="fileInput"
+                                style={{ display: "none" }}
+                                onChange={handleFileInputChange}
+                              />
+                            </div>
                             <div className="stepss">
                               <div className="stepss">
                                 {/* <label>Step 1:</label> */}
@@ -241,10 +313,10 @@ const EditProfile = () => {
                                   placeholder="Example : +918777349901"
                                   required
                                   type="text"
-                                  value={formData.phone}
+                                  value={formData.contact}
                                   className="form-control w-100"
                                   onChange={(e) =>
-                                    handleChange("phone", e.target.value)
+                                    handleChange("contact", e.target.value)
                                   }
                                 />
                                 <br />

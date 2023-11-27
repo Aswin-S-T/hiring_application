@@ -3,6 +3,7 @@ const AppliedJobs = require("../../models/appliedJobs");
 const Jobs = require("../../models/jobModal");
 const User = require("../../models/userModal");
 const { sendEmailNotification } = require("../../utils/utils");
+const { cloudinary } = require("../../utils/cloudinary");
 
 module.exports = {
   listAllJobs: () => {
@@ -92,6 +93,30 @@ module.exports = {
           resolve(successResponse);
         }
       });
+    });
+  },
+  editProfile: (userId, data) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const imageResponse = await cloudinary.uploader.upload(
+          data?.profileImage,
+          {
+            upload_preset: "hiring_application",
+          }
+        );
+
+        data.profileImage = imageResponse?.url;
+
+        const updatedUser = await User.updateOne(
+          { _id: userId },
+          { $set: data }
+        );
+
+        resolve(updatedUser);
+      } catch (error) {
+        console.error("Error in editProfile:", error);
+        reject(error);
+      }
     });
   },
 };
