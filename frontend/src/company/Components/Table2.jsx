@@ -109,6 +109,7 @@ const Table2 = () => {
                                 <th>ID</th>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Actions</th>
                                 {/* Add more columns as needed */}
                               </tr>
                             </thead>
@@ -119,7 +120,28 @@ const Table2 = () => {
                                     <td>{user._id}</td>
                                     <td>{user.username}</td>
                                     <td>{user.email}</td>
-                                    {/* Add more columns as needed */}
+                                    <td>
+                                      <div class="dropdown">
+                                        <button
+                                          class=" dropdown-toggle"
+                                          type="button"
+                                          data-toggle="dropdown"
+                                          aria-expanded="false"
+                                        >
+                                          Dropdown button
+                                        </button>
+                                        <div class="dropdown-menu">
+                                          <a
+                                            class="dropdown-item"
+                                            href={`/profile/${user?._id}`}
+                                          >
+                                            View Profile
+                                          </a>
+                                          <a class="dropdown-item">Select</a>
+                                          <a class="dropdown-item">Reject</a>
+                                        </div>
+                                      </div>
+                                    </td>
                                   </tr>
                                 </>
                               ))}
