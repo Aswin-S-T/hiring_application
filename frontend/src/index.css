@@ -375,3 +375,8 @@ img.thumbnail{
   height: 40px;
   border-radius: 50%;
 }
+div.interview-screen{
+  background-color: #0e142b;
+  width: 100vw;
+  height: 100vh;
+}
