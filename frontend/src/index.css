@@ -68,10 +68,11 @@ button.exploreBtn{
 }
 .loginBtn{
   border: none;
-  background-color: #367536;
+  background-color: darkcyan;
   padding: 8px;
   color: white;
   border-radius: 20px;
+  width: 150px;
 }
 
 .login-screen .col-md-6:first-child{
@@ -503,4 +504,7 @@ div.MuiBox-root{
 .Permanent {
   background-color: #57f657;
   color: white;
+}
+.job-details-page h5{
+  font-weight: 600;
 }
