@@ -14,6 +14,7 @@ const candidateRouter = express.Router();
 
 const multer = require("multer");
 const path = require("path");
+const Jobs = require("../../models/jobModal");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -30,7 +31,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-candidateRouter.get("/", (req, res) => {
+candidateRouter.get("/", async(req, res) => {
+  let datas = data.jobs;
+  await Jobs.create(datas)
+  console.log("DATA----------", datas);
   res.send("Candidate router called");
 });
 
