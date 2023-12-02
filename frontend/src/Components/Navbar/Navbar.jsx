@@ -46,7 +46,10 @@ function Navbar() {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
+                {/* <a class="nav-link disabled">Disabled</a> */}
+                <a class="nav-link" href={`/interview/${userData?._id}`}>
+                  Interviews
+                </a>
               </li>
             </ul>
           </div>
