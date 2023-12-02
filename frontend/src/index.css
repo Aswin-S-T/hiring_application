@@ -472,3 +472,35 @@ div.icon-box{
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
   border-radius: 5px;
 }
+
+.search-input{
+  box-shadow: 0 4px 8px 0 rgba(235, 243, 241, 0.2), 0 6px 20px 0 rgba(119, 138, 129, 0.19); 
+  padding: 10px;
+  height: 40px;
+}
+.searchBtn{
+  background-color: darkcyan;
+  color: white;
+  width: 150px;
+  border: none;
+  outline: none;
+}
+div.MuiBox-root{
+  width: 100%;
+}
+
+.jobs-lists{
+  display: flex;
+  /* flex-direction: column;
+  width: 100%; */
+}
+.job-type{
+  padding: 4px;
+  width: fit-content;
+  border-radius: 6px;
+}
+
+.Permanent {
+  background-color: #57f657;
+  color: white;
+}

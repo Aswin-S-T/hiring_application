@@ -5,6 +5,8 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import ClickableLinkChips from "../Chips/ClickableLinkChips";
 
 const bull = (
   <Box
@@ -21,21 +23,28 @@ export default function OutlinedCard({ data }) {
   };
 
   return (
-    <Box sx={{ minWidth: 275}} >
+    <Box>
       {data &&
         data.length > 0 &&
         data.map((job) => (
-          <Card variant="outlined" className="mt-2 cardBox w-100">
-            <React.Fragment>
-              <CardContent>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="green"
-                  gutterBottom
-                  style={{ color: "green" }}
+          <Card variant="outlined" className="mt-2 cardBox w-100 ">
+            <React.Fragment className="w-100 row">
+              <CardContent className="w-100" style={{ width: "100%" }}>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  New
-                </Typography>
+                  <Typography
+                    sx={{ fontSize: 14 }}
+                    color="green"
+                    gutterBottom
+                    style={{ color: "green" }}
+                  >
+                    New
+                  </Typography>
+                  <div>
+                    <BookmarkBorderIcon />
+                  </div>
+                </div>
                 <Typography
                   variant="h5"
                   component="div"
@@ -45,11 +54,17 @@ export default function OutlinedCard({ data }) {
                 >
                   {job?.jobTitle}
                 </Typography>
+                {job?.jobType && (
+                  <div className={`job-type ${job?.jobType}`}>
+                    {job?.jobType}
+                  </div>
+                )}
+
                 <Typography
                   sx={{ mb: 1.5 }}
                   color="text.secondary"
                   className="jobLocation"
-                  style={{ color: "#a920c3" }}
+                  style={{ color: "darkcyan" }}
                 >
                   {job?.location}
                 </Typography>
@@ -59,10 +74,18 @@ export default function OutlinedCard({ data }) {
                   {'"a benevolent smile"'}
                 </Typography>
               </CardContent>
+              <div className="p-3">
+                {job?.skills_and_requirement && (
+                  <ClickableLinkChips
+                    skills={job?.skills_and_requirement?.split(",")}
+                  />
+                )}
+              </div>
               <CardActions>
                 <Button
                   size="small"
                   onClick={() => gotoJobDetailsPage(job?._id)}
+                  className="view-more"
                 >
                   View More
                 </Button>

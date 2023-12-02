@@ -5,11 +5,25 @@ import OutlinedCard from "../Components/Card/Card";
 import axios from "axios";
 import API_ENDPOINTS from "../Api";
 import Loader from "../Components/Loader";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 function AllJobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredJobs, setFilteredJobs] = useState([]);
+
+  // const fetchJobsData = async () => {
+  //   // Simulating data fetching delay
+  //   setLoading(true);
+  //   const response = await fetch("your-api-endpoint");
+  //   const data = await response.json();
+  //   setLoading(false);
+  //   return data;
+  // };
+
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -26,6 +40,20 @@ function AllJobs() {
       setError(true);
     }
   }, []);
+
+  const handleSearch = async () => {
+    const allJobs = jobs;
+
+    // Filter jobs based on search query and sort by jobTitle
+    const filteredAndSortedJobs = allJobs
+      .filter((job) => {
+        job.jobTitle.toLowerCase().includes(searchQuery.toLowerCase());
+      })
+      .sort((a, b) => a.jobTitle.localeCompare(b.jobTitle));
+
+    setFilteredJobs(filteredAndSortedJobs);
+  };
+
   return (
     <div style={{ backgroundColor: "whitesmoke" }}>
       <Navbar />
@@ -34,7 +62,23 @@ function AllJobs() {
           <div class="overlay" style={{ display: "none" }}></div>
           <div class="search-section">
             <div class="container-fluid container-xl">
-              <div class="row main-content ml-md-0">
+              <div style={{ display: "flex", justifyContent: "space-around" }}>
+                <input
+                  type="search"
+                  placeholder="Search by keywords (.Net, Nodejs ... etc)"
+                  className="form-control search-input p-4"
+                  style={{
+                    boxShadow:
+                      "0 4px 8px 0 rgba(235, 243, 241, 0.2), 0 6px 20px 0 rgba(119, 138, 129, 0.19)",
+                    height: "40px",
+                  }}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button className="searchBtn" onClick={handleSearch}>
+                  Search
+                </button>
+              </div>
+              <div class="row main-content ml-md-0 mt-4">
                 <div class="sidebar col-md-3 px-0">
                   <h1 class="border-bottom filter-header d-flex d-md-none p-3 mb-0 align-items-center">
                     <span class="mr-2 filter-close-btn">X</span>
@@ -54,7 +98,7 @@ function AllJobs() {
                               checked
                             />
                             <label class="custom-control-label" for="Indoor">
-                              Indoor
+                              Night Shift
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -64,13 +108,13 @@ function AllJobs() {
                               id="Outdoor"
                             />
                             <label class="custom-control-label" for="Outdoor">
-                              Outdoor
+                              Day Shift
                             </label>
                           </div>
                         </div>
 
                         <h2 class="font-xbold body-font border-bottom filter-title">
-                          Cuisines
+                          Location
                         </h2>
                         <div class="mb-3 filter-options" id="cusine-options">
                           <div class="custom-control custom-checkbox mb-3">
@@ -81,7 +125,7 @@ function AllJobs() {
                               checked
                             />
                             <label class="custom-control-label" for="Chinese">
-                              Chinese
+                              Kerala
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -91,7 +135,7 @@ function AllJobs() {
                               id="Italian"
                             />
                             <label class="custom-control-label" for="Italian">
-                              Italian
+                              Banglore
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -101,7 +145,7 @@ function AllJobs() {
                               id="Mexican"
                             />
                             <label class="custom-control-label" for="Mexican">
-                              Mexican
+                              Trivandrum
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -111,7 +155,7 @@ function AllJobs() {
                               id="Thai"
                             />
                             <label class="custom-control-label" for="Thai">
-                              Thai
+                              Kottayam
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -121,7 +165,7 @@ function AllJobs() {
                               id="Gujarati"
                             />
                             <label class="custom-control-label" for="Gujarati">
-                              Gujarati
+                              Ernakulam
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -131,7 +175,7 @@ function AllJobs() {
                               id="Panjabi"
                             />
                             <label class="custom-control-label" for="Panjabi">
-                              Panjabi
+                              Panjab
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -150,11 +194,11 @@ function AllJobs() {
                         </div>
 
                         <h2 class="font-xbold body-font border-bottom filter-title">
-                          Price Range
+                          Salary Range Range
                         </h2>
                         <div class="mb-3 theme-clr xs2-font d-flex justify-content-between">
-                          <span id="slider-range-value1">$100</span>
-                          <span id="slider-range-value2">$10,000</span>
+                          <span id="slider-range-value1">Min $100</span>
+                          <span id="slider-range-value2">Max $10,000</span>
                         </div>
                         <div class="mb-30 filter-options">
                           <div>
@@ -171,7 +215,7 @@ function AllJobs() {
                             </div>
                           </div>
                         </div>
-                        <h2 class="border-bottom filter-title">Services</h2>
+                        <h2 class="border-bottom filter-title">Skills</h2>
                         <div class="mb-3 filter-options" id="services-options">
                           <div class="custom-control custom-checkbox mb-3">
                             <input
@@ -181,7 +225,7 @@ function AllJobs() {
                               checked
                             />
                             <label class="custom-control-label" for="Breakfast">
-                              Breakfast
+                              React JS
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -191,7 +235,7 @@ function AllJobs() {
                               id="Lunch"
                             />
                             <label class="custom-control-label" for="Lunch">
-                              Lunch
+                              Node JS
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -201,7 +245,7 @@ function AllJobs() {
                               id="Donner"
                             />
                             <label class="custom-control-label" for="Donner">
-                              Donner
+                              Mongodb
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -211,7 +255,7 @@ function AllJobs() {
                               id="Cafe"
                             />
                             <label class="custom-control-label" for="Cafe">
-                              Cafe
+                              Php
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -221,7 +265,7 @@ function AllJobs() {
                               id="Brunch"
                             />
                             <label class="custom-control-label" for="Brunch">
-                              Brunch
+                              Express JS
                             </label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
@@ -240,14 +284,14 @@ function AllJobs() {
                   </div>
                 </div>
                 <div class="content col-md-9">
-                  <div>
+                  {/* <div>
                     <input
                       type="search"
                       className="form-control"
                       placeholder="Search job"
                     />
                     <i className="fa fa-search" style={{ float: "right" }}></i>
-                  </div>
+                  </div> */}
                   <div class="d-flex justify-content-between border-bottom align-items-center mt-2">
                     <h2 class="title">All Jobs</h2>
 
@@ -317,9 +361,9 @@ function AllJobs() {
                     {loading ? (
                       <Loader class="text-center" />
                     ) : (
-                     <div className="row">
-                       <OutlinedCard data={jobs} className='w-100' />
-                     </div>
+                      <div className="row col-md-12">
+                        <OutlinedCard data={jobs} className="w-100" />
+                      </div>
                     )}
                   </div>
                 </div>
