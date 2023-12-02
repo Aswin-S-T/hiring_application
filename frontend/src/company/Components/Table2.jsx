@@ -123,7 +123,7 @@ const Table2 = () => {
                                     <td>
                                       <div class="dropdown">
                                         <button
-                                          class=" dropdown-toggle"
+                                          class="actionBtn dropdown-toggle"
                                           type="button"
                                           data-toggle="dropdown"
                                           aria-expanded="false"

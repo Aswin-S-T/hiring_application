@@ -375,3 +375,9 @@ img.thumbnail{
   height: 40px;
   border-radius: 50%;
 }
+.actionBtn{
+  border-radius: 10px;
+  padding: 4px;
+  border: none;
+  outline: none;
+}
