@@ -12,6 +12,8 @@ function Profile() {
   const { id } = useParams();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [resume, setResume] = useState("");
+  const [uploadedFilename, setUploadedFilename] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +47,28 @@ function Profile() {
       downloadResume(userData.resume);
     } else {
       console.log("No resume available for download");
+    }
+  };
+
+  const handleFileChange = (e) => {
+    setResume(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("resume", resume);
+      formData.append("userId", userData?._id); // Directly append userId to formData
+
+      const response = await axios.post(API_ENDPOINTS.uploadResume, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setUploadedFilename(response.data.filename);
+    } catch (error) {
+      console.error("Error uploading file:", error.message);
     }
   };
 
@@ -134,7 +158,24 @@ function Profile() {
                         Download Resume
                       </button>
                     ) : (
-                      <button className="dwnd-btn mt-3">Upload Resume</button>
+                      // <button className="dwnd-btn mt-3" onClick={handleUpload}>
+                      //   Upload Resume
+                      // </button>
+                      <>
+                        <input
+                          type="file"
+                          className="form-control w-100"
+                          accept=".pdf,.doc,.docx"
+                          onChange={handleFileChange}
+                          required
+                        />
+                        <button
+                          onClick={handleUpload}
+                          className="btn btn-success"
+                        >
+                          Upload
+                        </button>
+                      </>
                     )}
                   </div>
                 </div>
