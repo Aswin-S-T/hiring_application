@@ -208,7 +208,7 @@ const EditProfile = () => {
       )}
       <Navbar />
       <div className="container">
-        <div className="card mt-5" style={{ height: "auto" }}>
+        <div className="card mt-5" style={{ height: "auto",top:"40px",position:"relative" }}>
           <div className="container p-2 mt-5">
             {/* <h4 className="mt-2">Update your profile</h4> */}
             <div className="row p-4 mt-5">
