@@ -93,7 +93,11 @@ function Profile() {
                     </a>
                     <div className="profile-image">
                       <img
-                        src="https://www.marcorossini.altervista.org/images/heading-profile.jpg"
+                        src={
+                          userData?.profileImage
+                            ? userData?.profileImage
+                            : `https://www.marcorossini.altervista.org/images/heading-profile.jpg`
+                        }
                         className="mt-4"
                       />
                     </div>

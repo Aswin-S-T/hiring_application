@@ -89,6 +89,7 @@ candidateRouter.get("/my-jobs/:id", (req, res) => {
 
 candidateRouter.post("/edit-profile/:id", (req, res) => {
   editProfile(req.params.id, req.body).then((result) => {
+    console.log("result-----------", result);
     res.send(result);
   });
 });

@@ -24,6 +24,7 @@ const EditProfile = () => {
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
+    console.log("FILE-----------", file);
     previewFile(file);
     setSelectedFile(file);
     setFileInputState(e.target.value);
@@ -67,24 +68,27 @@ const EditProfile = () => {
         if (resp && resp.status == 200 && resp?.data) {
           setFormData((prevFormData) => ({
             ...prevFormData,
-            profileImage:resp?.data?.data?.profileImage,
+            profileImage: resp?.data?.data?.profileImage,
             currentRole: resp?.data?.data?.currentRole,
-            about:resp?.data?.data?.about,
-            age:resp?.data?.data?.age,
-            yearsOfExp:resp?.data?.data?.yearsOfExp,
-            contact:resp?.data?.data?.contact,
-            email:resp?.data?.data?.email,
-            cctc:resp?.data?.data?.cctc,
-            location:resp?.data?.data?.location
+            about: resp?.data?.data?.about,
+            age: resp?.data?.data?.age,
+            yearsOfExp: resp?.data?.data?.yearsOfExp,
+            contact: resp?.data?.data?.contact,
+            email: resp?.data?.data?.email,
+            cctc: resp?.data?.data?.cctc,
+            location: resp?.data?.data?.location,
             // Assign other fields similarly
           }));
           setUserData(resp?.data?.data);
           if (resp.data.data?.experience.length > 0) {
-            setForms(resp.data.data.experience)
+            setForms(resp.data.data.experience);
+          }
+          if (resp.data.data?.profileImage) {
+            setPreviewSource(resp?.data?.data?.profileImage);
           }
 
           if (resp.data.data?.skills.length > 0) {
-            setItemList(resp.data.data.skills)
+            setItemList(resp.data.data.skills);
           }
 
           setLoading(false);
@@ -165,9 +169,12 @@ const EditProfile = () => {
   };
 
   const handleSubmitFile = () => {};
+  const [processing, setProcessing] = useState(false);
 
   const handleSubmit = async (file) => {
+    setProcessing(true);
     formData.skills = itemList;
+    console.log("base64EncodedImage---------------", base64EncodedImage);
     setFormData((prevFormData) => ({
       ...prevFormData,
       experience: forms,
@@ -178,6 +185,8 @@ const EditProfile = () => {
       .post(API_ENDPOINTS.editProfile + `/${id}`, formData)
       .then((resp) => {
         if (resp && resp.status == 200) {
+          setProcessing(false);
+          setBase65EncodedImage(null);
           Swal.fire({
             icon: "success",
             title: "Success!",
@@ -225,13 +234,15 @@ const EditProfile = () => {
                 <div>
                   {activeStep === steps.length ? (
                     <div>
-                      <p>All steps completed</p>
+                      <h6 className="text-center">
+                        All steps completed. Do you want to Continue?
+                      </h6>
                       <Button
                         onClick={handleSubmit}
                         variant="contained"
                         color="primary"
                       >
-                        Submit
+                        {processing ? <>Please wait....</> : <>Submit</>}
                       </Button>
                     </div>
                   ) : (
@@ -240,10 +251,21 @@ const EditProfile = () => {
                         {activeStep === 0 && (
                           <div className="stepss">
                             <div>
-                              <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx9tjaExsY-srL4VsHNE_OKGVCJ-eIFNBktw&usqp=CAU"
-                                className="profile-image"
-                              />
+                              {previewSource ? (
+                                <img
+                                  src={previewSource}
+                                  alt="chosen"
+                                  className="profile-image"
+                                />
+                              ) : (
+                                <>
+                                  <img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx9tjaExsY-srL4VsHNE_OKGVCJ-eIFNBktw&usqp=CAU"
+                                    className="profile-image"
+                                  />
+                                </>
+                              )}
+
                               <i
                                 className="fa fa-camera"
                                 style={{ fontSize: "25px" }}
@@ -574,7 +596,7 @@ const EditProfile = () => {
 
                       <div className="mt-2">
                         <Button
-                        style={{left:"-10px",position:"relative"}}
+                          style={{ left: "-10px", position: "relative" }}
                           disabled={activeStep === 0}
                           onClick={handleBack}
                           variant="contained"
