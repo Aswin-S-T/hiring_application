@@ -446,57 +446,48 @@ const EditProfile = () => {
                           <div>
                             <button
                               onClick={handleAddButtonClick}
-                              className="btn btn-primary"
+                              className="btn btn-secondary"
                             >
                               Add
                             </button>
                             {forms.map((form, index) => (
                               <div key={index} className="mt-2 row">
-                                <label>
-                                  Company Name:
-                                  <input
-                                    required
-                                    type="text"
-                                    className="form-control w-100"
-                                    placeholder="Enter compny name"
-                                    name="jobTitle"
-                                    value={form.jobTitle}
-                                    onChange={(e) =>
-                                      handleChange(
-                                        "experience",
-                                        e.target,
-                                        index
-                                      )
-                                    }
-                                  />
-                                </label>
+                                <label>Company Name:</label>
+                                <input
+                                  required
+                                  type="text"
+                                  className="form-control w-100"
+                                  placeholder="Enter compny name"
+                                  name="jobTitle"
+                                  value={form.jobTitle}
+                                  onChange={(e) =>
+                                    handleChange("experience", e.target, index)
+                                  }
+                                />
                                 <br />
-                                <label>
-                                  Role:
-                                  <input
-                                    required
-                                    className="form-control"
-                                    type="text"
-                                    placeholder="Enter role"
-                                    name="role"
-                                    value={form.role}
-                                    onChange={(e) =>
-                                      handleChange(
-                                        "experience",
-                                        e.target,
-                                        index
-                                      )
-                                    }
-                                  />
-                                </label>
                                 <br />
-                                <div>
+                                <br />
+                                <label>Role:</label>
+                                <input
+                                  required
+                                  className="form-control"
+                                  type="text"
+                                  placeholder="Enter role"
+                                  name="role"
+                                  value={form.role}
+                                  onChange={(e) =>
+                                    handleChange("experience", e.target, index)
+                                  }
+                                />
+                                <br />
+                                <br />
+                                <div className="">
                                   <div className="row">
-                                    <label>
-                                      Start Date:
+                                    <div className="col-md-6">
+                                      <label>Start Date:</label>
                                       <input
                                         required
-                                        className="form-control"
+                                        className="form-control w-100"
                                         type="date"
                                         name="startDate"
                                         value={form.startDate}
@@ -508,13 +499,12 @@ const EditProfile = () => {
                                           )
                                         }
                                       />
-                                    </label>
-
-                                    <label>
-                                      End Date:
+                                    </div>
+                                    <div className="col-md-6">
+                                      <label>End Date:</label>
                                       <input
                                         required
-                                        className="form-control"
+                                        className="form-control w-100"
                                         type="date"
                                         name="endDate"
                                         value={form.endDate}
@@ -526,7 +516,11 @@ const EditProfile = () => {
                                           )
                                         }
                                       />
-                                    </label>
+                                    </div>
+
+                                    <br />
+                                    <br />
+                                    <br />
                                   </div>
 
                                   <br />
