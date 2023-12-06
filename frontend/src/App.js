@@ -15,6 +15,7 @@ import MyJobs from "./Screens/MyJobs";
 import Profile from "./Screens/Profile";
 import EditProfile from "./Screens/candidate/EditProfile";
 import InterviewScreen from "./Screens/candidate/InterviewScreen";
+import AdminDashboard from "./users/Admin/AdminDashboard/AdminDashboard";
 
 function App() {
   return (
@@ -38,6 +39,14 @@ function App() {
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/edit-profile/:id" element={<EditProfile />} />
             <Route path="/interview/:id" element={<InterviewScreen />} />
+
+
+            {/* Admin Routes */}
+
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+            {/* End admin routes */}
+
           </Routes>
         </main>
       </div>
