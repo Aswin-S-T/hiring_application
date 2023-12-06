@@ -25,6 +25,11 @@ function PersonalDetailsForm({ updateFormData }) {
   const [references, setReferences] = useState("");
   const [portfolio, setPortfolio] = useState("");
   const [uploadedFilename, setUploadedFilename] = useState("");
+  const [newResume, setNewResume] = useState(false);
+
+  const handleRadioChange = (e) => {
+    setNewResume(e.target.value === "true");
+  };
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem("userData"))
   );
@@ -140,20 +145,48 @@ function PersonalDetailsForm({ updateFormData }) {
 
             <div className="col-md-6">
               <label>Resume/CV:</label>
-              <input
-                type="file"
-                className="form-control w-100"
-                accept=".pdf,.doc,.docx"
-                onChange={handleFileChange}
-                required
-              />
-              <button onClick={handleUpload} className="btn btn-success">
-                Upload
-              </button>
-              {uploadedFilename && (
-                <p style={{ color: "#700c93" }}>
-                  File uploaded: {uploadedFilename}
-                </p>
+              <div className="mt-3" style={{ color: "red" }}>
+                <label>
+                  <input
+                    type="radio"
+                    value={false}
+                    name="resumeOption"
+                    onChange={handleRadioChange}
+                  />
+                  Use existing resume
+                </label>
+                {"     "}
+
+                <label style={{ left: "20px", position: "relative" }}>
+                  <input
+                    type="radio"
+                    value={true}
+                    name="resumeOption"
+                    onChange={handleRadioChange}
+                  />
+                  Upload new resume
+                </label>
+              </div>
+              {newResume ? (
+                <>
+                  <input
+                    type="file"
+                    className="form-control w-100 mt-3"
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleFileChange}
+                    required
+                  />
+                  <button onClick={handleUpload} className="btn btn-success">
+                    Upload
+                  </button>
+                  {uploadedFilename && (
+                    <p style={{ color: "#700c93" }}>
+                      File uploaded: {uploadedFilename}
+                    </p>
+                  )}
+                </>
+              ) : (
+                <p style={{color:"green"}}>{userData?.resume}</p>
               )}
             </div>
             <div className="col-md-6">
@@ -165,7 +198,7 @@ function PersonalDetailsForm({ updateFormData }) {
               />
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-6 mt-3">
               <label>Total Work Experience:</label>
               <textarea
                 className="form-control w-100"
@@ -209,7 +242,7 @@ function PersonalDetailsForm({ updateFormData }) {
               />
             </div>
             <div className="col-md-6">
-              <label>Portfolio or Work Samples:</label>
+              <label>Portfolio or Github Link:</label>
               <input
                 type="text"
                 className="form-control w-100"
@@ -217,7 +250,7 @@ function PersonalDetailsForm({ updateFormData }) {
                 onChange={(e) => setPortfolio(e.target.value)}
               />
             </div>
-            <div className="ml-auto">
+            <div className="">
               <button
                 disabled={disableBtn}
                 className="btn btn-primary mt-5"
