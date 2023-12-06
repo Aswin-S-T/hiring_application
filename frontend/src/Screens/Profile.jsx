@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import API_ENDPOINTS from "../Api";
 import Loader from "../Components/Loader";
+import EditIcon from "@mui/icons-material/Edit";
 
 function Profile() {
   const { id } = useParams();
@@ -73,7 +74,7 @@ function Profile() {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: "whitesmoke" }}>
       <Navbar />
       <div className="container">
         {loading ? (
@@ -81,9 +82,15 @@ function Profile() {
         ) : (
           <>
             <div className="row mt-5">
-              <div className="col-md-4">
+              <div className="col-md-4 mt-4">
                 <div className="profile-card mt-4">
                   <div className="container-fluid">
+                    <a href={`/edit-profile/${userData?._id}`}>
+                      <EditIcon
+                        className="ml-auto mt-2"
+                        style={{ float: "right" }}
+                      />
+                    </a>
                     <div className="profile-image">
                       <img
                         src="https://www.marcorossini.altervista.org/images/heading-profile.jpg"
@@ -95,7 +102,7 @@ function Profile() {
                     <div className="content">{userData?.about}</div>
                     <div className="mt-3">
                       <h5>Skills</h5>
-                      <div>
+                      <div className="row">
                         {userData?.skills && userData?.skills?.length > 0 && (
                           <ClickableLinkChips skills={userData?.skills} />
                         )}
@@ -114,7 +121,7 @@ function Profile() {
                   </div>
                 </div>
               </div>
-              <div className="col-md-8">
+              <div className="col-md-8 mt-4">
                 <div className="profile-card mt-4 p-4">
                   <div className="container-fluid">
                     <div className="mt-3">

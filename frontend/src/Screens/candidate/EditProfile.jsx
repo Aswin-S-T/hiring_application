@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -19,10 +19,11 @@ const EditProfile = () => {
   const [previewSource, setPreviewSource] = useState("");
   const [selectedFile, setSelectedFile] = useState();
   const [base64EncodedImage, setBase65EncodedImage] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
-    console.log("FILE------------", file);
     previewFile(file);
     setSelectedFile(file);
     setFileInputState(e.target.value);
@@ -31,7 +32,6 @@ const EditProfile = () => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       // handleSubmit(reader.result);
-      console.log("BASE IMAGE-------------", reader?.result);
     };
   };
 
@@ -59,6 +59,40 @@ const EditProfile = () => {
     skills: [],
     step3: "",
   });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      setLoading(true);
+      await axios.get(API_ENDPOINTS.getProfile + `/${id}`).then((resp) => {
+        if (resp && resp.status == 200 && resp?.data) {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            profileImage:resp?.data?.data?.profileImage,
+            currentRole: resp?.data?.data?.currentRole,
+            about:resp?.data?.data?.about,
+            age:resp?.data?.data?.age,
+            yearsOfExp:resp?.data?.data?.yearsOfExp,
+            contact:resp?.data?.data?.contact,
+            email:resp?.data?.data?.email,
+            cctc:resp?.data?.data?.cctc,
+            location:resp?.data?.data?.location
+            // Assign other fields similarly
+          }));
+          setUserData(resp?.data?.data);
+          if (resp.data.data?.experience.length > 0) {
+            setForms(resp.data.data.experience)
+          }
+
+          if (resp.data.data?.skills.length > 0) {
+            setItemList(resp.data.data.skills)
+          }
+
+          setLoading(false);
+        }
+      });
+    };
+    fetchUserData();
+  }, []);
 
   const [forms, setForms] = useState([]);
 
@@ -158,13 +192,17 @@ const EditProfile = () => {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: "whitesmoke" }}>
+      {console.log(
+        "USER DATA------------",
+        userData ? userData : "no userData"
+      )}
       <Navbar />
       <div className="container">
-        <div className="card" style={{ height: "auto" }}>
-          <div className="container p-2">
-            <h4 className="mt-2">Update your profile</h4>
-            <div className="row p-4">
+        <div className="card mt-5" style={{ height: "auto" }}>
+          <div className="container p-2 mt-5">
+            {/* <h4 className="mt-2">Update your profile</h4> */}
+            <div className="row p-4 mt-5">
               <div className="col-md-5">
                 <Stepper
                   activeStep={activeStep}
@@ -536,6 +574,7 @@ const EditProfile = () => {
 
                       <div className="mt-2">
                         <Button
+                        style={{left:"-10px",position:"relative"}}
                           disabled={activeStep === 0}
                           onClick={handleBack}
                           variant="contained"
@@ -545,7 +584,7 @@ const EditProfile = () => {
                         <Button
                           onClick={handleNext}
                           variant="contained"
-                          color="primary"
+                          color="success"
                         >
                           {activeStep === steps.length - 1 ? "Finish" : "Next"}
                         </Button>
