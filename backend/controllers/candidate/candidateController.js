@@ -104,9 +104,9 @@ module.exports = {
             upload_preset: "hiring_application",
           }
         );
-
+        console.log("image from cloudinary : ", imageResponse?.url);
         data.profileImage = imageResponse?.url;
-
+        console.log("DATA : ", data);
         const updatedUser = await User.updateOne(
           { _id: userId },
           { $set: data }

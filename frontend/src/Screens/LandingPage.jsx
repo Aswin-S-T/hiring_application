@@ -1,6 +1,8 @@
 import React from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
+import TotalAvatars from "../Components/TotalAvatars/TotalAvatars";
+import Page1 from "./candidate/Page1";
 
 function LandingPage() {
   return (
@@ -8,25 +10,125 @@ function LandingPage() {
       <Navbar />
       <div className="container-fluid landing-page-container">
         <div className="row mt-5" style={{ top: "40px", position: "relative" }}>
-          <div className="col-md-6">
-            <div className="container-fluid">
-              <div className="title">
+          <div className="col-md-5 mt-5">
+            <div className="container">
+              <div className="title mt-5">
                 <h2>
-                  Its Easy to find <br /> your <span>Dream Job</span>
+                  Its Easy to find your
+                  <span>Dream Job</span>
                 </h2>
+              </div>
+              <div>
+                {/* <p className="about-desc mt-5">
+                Welcome to{" "}
+                <span style={{ color: "darkcyan" }}>CareerLinker</span>, where
+                opportunities meet talent. Discover your next career move or
+                find the perfect candidate with our intuitive job portal.
+                Connecting companies and candidates seamlessly, we make the
+                hiring process simple and efficient. Your journey to success
+                starts here.
+              </p> */}
               </div>
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-7 mt-5">
             <img
               style={{ top: "-80px", position: "relative" }}
-              src="https://www.iihglobal.com/wp-content/uploads/2021/09/android-app.png"
+              src="https://img.freepik.com/free-photo/happy-young-man-using-laptop-computer_171337-19581.jpg"
               className="w-100"
             />
           </div>
         </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4">
+              <img
+                src="https://cdni.iconscout.com/illustration/premium/thumb/software-developers-3896190-3239630.png"
+                className="w-50"
+              />
+            </div>
+            <div className="col-md-4">
+              <div>
+                <h4 style={{ fontWeight: "600" }}>
+                  Find full time , part time and remote job.
+                </h4>
+                <br />
+                <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                  <TotalAvatars />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="row job-count-div">
+                <div className="col-md-4">
+                  <div>
+                    <h3>Live Jobs</h3>
+                    <h6 style={{ color: "orange" }}>25000</h6>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div>
+                    <h3>Daily Job post</h3>
+                    <h6 style={{ color: "darkcyan" }}>4000+</h6>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div>
+                    <h3>Active Companies</h3>
+                    <h6 style={{ color: "green" }}>1 Lakh</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <main>
+        <section className="container-fluid ">
+          <Page1 />
+        </section>
+
+        <div className="advDiv">
+          <h4>
+            Find the Talent needed <br /> to get your Business growing
+          </h4>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY7SBE57Fhwae1H6ViP378GsJGzvDULrFz4w&usqp=CAU" />
+        </div>
+        <section>
+          <div className="container mt-5">
+            <div className="row">
+              <div className="col-md-6">
+                <div>
+                  <img
+                    src="https://st.depositphotos.com/1144472/1971/i/450/depositphotos_19714321-stock-photo-young-happy-smiling-business-man.jpg"
+                    className="w-100"
+                  />
+                </div>
+              </div>
+              <div className="col-md-6 mt-5">
+                <h2>Our service to provide your career grows</h2>
+                <div className="mt-4">
+                  <p>
+                    Contrary to popular belief, Lorem Ipsum is not simply random
+                    text. It has roots in a piece of classical Latin literature
+                    from 45 BC, making it over 2000 years old. Richard
+                    McClintock, a Latin professor at Hampden-Sydney College in
+                    Virginia, looked up one of the more obscure Latin words,
+                    consectetur, from a Lorem Ipsum passage, and going through
+                    the cites of the word in classical literature, discovered
+                    the undoubtable source. Lorem Ipsum comes from sections
+                    1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The
+                    Extremes of Good and Evil) by Cicero, written in 45 BC. This
+                    book is a treatise on the theory of ethics, very popular
+                    during the Renaissance. The first line of Lorem Ipsum,
+                    "Lorem ipsum dolor sit amet..", comes from a line in section
+                    1.10.32.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         <section className="container">
           <h2>Browser Talent By Category</h2>
           <div className="row">
@@ -64,47 +166,6 @@ function LandingPage() {
                   className="w-100"
                 />
                 <h3 className="mt-3">Embedded Programming</h3>
-              </div>
-            </div>
-          </div>
-        </section>
-        <div className="advDiv">
-          <h4>
-            Find the Talent needed <br /> to get your Business growing
-          </h4>
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY7SBE57Fhwae1H6ViP378GsJGzvDULrFz4w&usqp=CAU" />
-        </div>
-        <section>
-          <div className="container mt-5">
-            <div className="row">
-              <div className="col-md-6">
-                <div>
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY7SBE57Fhwae1H6ViP378GsJGzvDULrFz4w&usqp=CAU"
-                    className="w-100"
-                  />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <h2>Our service to provide your career grows</h2>
-                <div className="mt-4">
-                  <p>
-                    Contrary to popular belief, Lorem Ipsum is not simply random
-                    text. It has roots in a piece of classical Latin literature
-                    from 45 BC, making it over 2000 years old. Richard
-                    McClintock, a Latin professor at Hampden-Sydney College in
-                    Virginia, looked up one of the more obscure Latin words,
-                    consectetur, from a Lorem Ipsum passage, and going through
-                    the cites of the word in classical literature, discovered
-                    the undoubtable source. Lorem Ipsum comes from sections
-                    1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The
-                    Extremes of Good and Evil) by Cicero, written in 45 BC. This
-                    book is a treatise on the theory of ethics, very popular
-                    during the Renaissance. The first line of Lorem Ipsum,
-                    "Lorem ipsum dolor sit amet..", comes from a line in section
-                    1.10.32.
-                  </p>
-                </div>
               </div>
             </div>
           </div>

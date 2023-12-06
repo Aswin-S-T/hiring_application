@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -19,10 +19,12 @@ const EditProfile = () => {
   const [previewSource, setPreviewSource] = useState("");
   const [selectedFile, setSelectedFile] = useState();
   const [base64EncodedImage, setBase65EncodedImage] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
-    console.log("FILE------------", file);
+    console.log("FILE-----------", file);
     previewFile(file);
     setSelectedFile(file);
     setFileInputState(e.target.value);
@@ -31,7 +33,6 @@ const EditProfile = () => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       // handleSubmit(reader.result);
-      console.log("BASE IMAGE-------------", reader?.result);
     };
   };
 
@@ -59,6 +60,43 @@ const EditProfile = () => {
     skills: [],
     step3: "",
   });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      setLoading(true);
+      await axios.get(API_ENDPOINTS.getProfile + `/${id}`).then((resp) => {
+        if (resp && resp.status == 200 && resp?.data) {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            profileImage: resp?.data?.data?.profileImage,
+            currentRole: resp?.data?.data?.currentRole,
+            about: resp?.data?.data?.about,
+            age: resp?.data?.data?.age,
+            yearsOfExp: resp?.data?.data?.yearsOfExp,
+            contact: resp?.data?.data?.contact,
+            email: resp?.data?.data?.email,
+            cctc: resp?.data?.data?.cctc,
+            location: resp?.data?.data?.location,
+            // Assign other fields similarly
+          }));
+          setUserData(resp?.data?.data);
+          if (resp.data.data?.experience.length > 0) {
+            setForms(resp.data.data.experience);
+          }
+          if (resp.data.data?.profileImage) {
+            setPreviewSource(resp?.data?.data?.profileImage);
+          }
+
+          if (resp.data.data?.skills.length > 0) {
+            setItemList(resp.data.data.skills);
+          }
+
+          setLoading(false);
+        }
+      });
+    };
+    fetchUserData();
+  }, []);
 
   const [forms, setForms] = useState([]);
 
@@ -131,9 +169,12 @@ const EditProfile = () => {
   };
 
   const handleSubmitFile = () => {};
+  const [processing, setProcessing] = useState(false);
 
   const handleSubmit = async (file) => {
+    setProcessing(true);
     formData.skills = itemList;
+    console.log("base64EncodedImage---------------", base64EncodedImage);
     setFormData((prevFormData) => ({
       ...prevFormData,
       experience: forms,
@@ -144,6 +185,8 @@ const EditProfile = () => {
       .post(API_ENDPOINTS.editProfile + `/${id}`, formData)
       .then((resp) => {
         if (resp && resp.status == 200) {
+          setProcessing(false);
+          setBase65EncodedImage(null);
           Swal.fire({
             icon: "success",
             title: "Success!",
@@ -158,13 +201,17 @@ const EditProfile = () => {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: "whitesmoke" }}>
+      {console.log(
+        "USER DATA------------",
+        userData ? userData : "no userData"
+      )}
       <Navbar />
       <div className="container">
-        <div className="card" style={{ height: "auto" }}>
-          <div className="container p-2">
-            <h4 className="mt-2">Update your profile</h4>
-            <div className="row p-4">
+        <div className="card mt-5" style={{ height: "auto",top:"40px",position:"relative" }}>
+          <div className="container p-2 mt-5">
+            {/* <h4 className="mt-2">Update your profile</h4> */}
+            <div className="row p-4 mt-5">
               <div className="col-md-5">
                 <Stepper
                   activeStep={activeStep}
@@ -187,13 +234,15 @@ const EditProfile = () => {
                 <div>
                   {activeStep === steps.length ? (
                     <div>
-                      <p>All steps completed</p>
+                      <h6 className="text-center">
+                        All steps completed. Do you want to Continue?
+                      </h6>
                       <Button
                         onClick={handleSubmit}
                         variant="contained"
                         color="primary"
                       >
-                        Submit
+                        {processing ? <>Please wait....</> : <>Submit</>}
                       </Button>
                     </div>
                   ) : (
@@ -202,10 +251,21 @@ const EditProfile = () => {
                         {activeStep === 0 && (
                           <div className="stepss">
                             <div>
-                              <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx9tjaExsY-srL4VsHNE_OKGVCJ-eIFNBktw&usqp=CAU"
-                                className="profile-image"
-                              />
+                              {previewSource ? (
+                                <img
+                                  src={previewSource}
+                                  alt="chosen"
+                                  className="profile-image"
+                                />
+                              ) : (
+                                <>
+                                  <img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx9tjaExsY-srL4VsHNE_OKGVCJ-eIFNBktw&usqp=CAU"
+                                    className="profile-image"
+                                  />
+                                </>
+                              )}
+
                               <i
                                 className="fa fa-camera"
                                 style={{ fontSize: "25px" }}
@@ -386,57 +446,48 @@ const EditProfile = () => {
                           <div>
                             <button
                               onClick={handleAddButtonClick}
-                              className="btn btn-primary"
+                              className="btn btn-secondary"
                             >
                               Add
                             </button>
                             {forms.map((form, index) => (
                               <div key={index} className="mt-2 row">
-                                <label>
-                                  Company Name:
-                                  <input
-                                    required
-                                    type="text"
-                                    className="form-control w-100"
-                                    placeholder="Enter compny name"
-                                    name="jobTitle"
-                                    value={form.jobTitle}
-                                    onChange={(e) =>
-                                      handleChange(
-                                        "experience",
-                                        e.target,
-                                        index
-                                      )
-                                    }
-                                  />
-                                </label>
+                                <label>Company Name:</label>
+                                <input
+                                  required
+                                  type="text"
+                                  className="form-control w-100"
+                                  placeholder="Enter compny name"
+                                  name="jobTitle"
+                                  value={form.jobTitle}
+                                  onChange={(e) =>
+                                    handleChange("experience", e.target, index)
+                                  }
+                                />
                                 <br />
-                                <label>
-                                  Role:
-                                  <input
-                                    required
-                                    className="form-control"
-                                    type="text"
-                                    placeholder="Enter role"
-                                    name="role"
-                                    value={form.role}
-                                    onChange={(e) =>
-                                      handleChange(
-                                        "experience",
-                                        e.target,
-                                        index
-                                      )
-                                    }
-                                  />
-                                </label>
                                 <br />
-                                <div>
+                                <br />
+                                <label>Role:</label>
+                                <input
+                                  required
+                                  className="form-control"
+                                  type="text"
+                                  placeholder="Enter role"
+                                  name="role"
+                                  value={form.role}
+                                  onChange={(e) =>
+                                    handleChange("experience", e.target, index)
+                                  }
+                                />
+                                <br />
+                                <br />
+                                <div className="">
                                   <div className="row">
-                                    <label>
-                                      Start Date:
+                                    <div className="col-md-6">
+                                      <label>Start Date:</label>
                                       <input
                                         required
-                                        className="form-control"
+                                        className="form-control w-100"
                                         type="date"
                                         name="startDate"
                                         value={form.startDate}
@@ -448,13 +499,12 @@ const EditProfile = () => {
                                           )
                                         }
                                       />
-                                    </label>
-
-                                    <label>
-                                      End Date:
+                                    </div>
+                                    <div className="col-md-6">
+                                      <label>End Date:</label>
                                       <input
                                         required
-                                        className="form-control"
+                                        className="form-control w-100"
                                         type="date"
                                         name="endDate"
                                         value={form.endDate}
@@ -466,7 +516,11 @@ const EditProfile = () => {
                                           )
                                         }
                                       />
-                                    </label>
+                                    </div>
+
+                                    <br />
+                                    <br />
+                                    <br />
                                   </div>
 
                                   <br />
@@ -536,6 +590,7 @@ const EditProfile = () => {
 
                       <div className="mt-2">
                         <Button
+                          style={{ left: "-10px", position: "relative" }}
                           disabled={activeStep === 0}
                           onClick={handleBack}
                           variant="contained"
@@ -545,7 +600,7 @@ const EditProfile = () => {
                         <Button
                           onClick={handleNext}
                           variant="contained"
-                          color="primary"
+                          color="success"
                         >
                           {activeStep === steps.length - 1 ? "Finish" : "Next"}
                         </Button>

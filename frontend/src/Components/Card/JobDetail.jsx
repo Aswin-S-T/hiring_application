@@ -14,6 +14,8 @@ import API_ENDPOINTS from "../../Api";
 import { useEffect } from "react";
 import moment from "moment";
 import Loader from "../Loader";
+import ClickableLinkChips from "../Chips/ClickableLinkChips";
+import Swal from "sweetalert2";
 
 const bull = (
   <Box
@@ -73,7 +75,18 @@ export default function JobDetail() {
   }, []);
 
   const applyJob = () => {
-    window.location.href = `/candidate/apply-job/${id}`;
+    Swal.fire({
+      title: "Do you want to proceed?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = `/candidate/apply-job/${id}`;
+      } else {
+      }
+    });
   };
 
   const login = () => {
@@ -81,35 +94,84 @@ export default function JobDetail() {
   };
 
   return (
-    <div className="mt-5">
+    <div
+      className="mt-5 .job-details-page"
+      style={{ backgroundColor: "whitesmoke", height: "100vh" }}
+    >
       {loading ? (
         <Loader />
       ) : (
         <>
-          <Card sx={{ minWidth: 275 }}>
+          <Card sx={{ minWidth: 275 }} className="">
             <CardContent>
               <Typography sx={{ fontSize: 14 }} color="green" gutterBottom>
                 New
               </Typography>
               <p style={{ color: "red" }}>Posted {timeAgo}</p>
-              <Typography variant="h5" component="div">
+              <Typography
+                variant="h5"
+                component="div"
+                style={{ fontWeight: "bold" }}
+              >
                 {job?.jobTitle}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
                 {job?.company}
               </Typography>
-              <Typography variant="body2">
-                {job?.description}
+              <Typography
+                variant="body2"
+                style={{ color: "grey", fontSize: "18px" }}
+              >
+                {job?.jobDescription}
                 <br />
-                {'"a benevolent smile"'}
               </Typography>
               <br />
               <div>
-                <h5>Salary : {job?.salary}</h5>
-                <h5>Location : {job?.location}</h5>
-                <h5>Education : {job?.education}</h5>
-                <h5>Expericence Level : {job?.experienceLevel}</h5>
-                <h4>Skills Required</h4>
+                <h5>
+                  <span style={{ fontWeight: "bold", fontSize: "20px" }}>
+                    Salary
+                  </span>{" "}
+                  <br />
+                  <p style={{ color: "grey", fontSize: "18px" }}>
+                    {job?.salary}
+                  </p>
+                </h5>
+                <h5>
+                  <span style={{ fontWeight: "bold", fontSize: "20px" }}>
+                    Location :
+                  </span>{" "}
+                  <br />
+                  <p style={{ color: "grey", fontSize: "18px" }}>
+                    {job?.location}
+                  </p>
+                </h5>
+                <h5>
+                  <span style={{ fontWeight: "bold", fontSize: "20px" }}>
+                    Education :
+                  </span>{" "}
+                  {job?.education}
+                </h5>
+                <h5>
+                  <span style={{ fontWeight: "bold", fontSize: "20px" }}>
+                    Expericence Level :
+                  </span>{" "}
+                  {job?.experienceLevel}
+                </h5>
+                <h4>
+                  {job?.skills_and_requirement && (
+                    <>
+                      <span style={{ fontWeight: "bold", fontSize: "20px" }}>
+                        Skills Required{" "}
+                      </span>
+                      <ClickableLinkChips
+                        className="mt-5"
+                        skills={job?.skills_and_requirement?.split(",")}
+                      />
+                    </>
+                  )}
+
+                  {/* <ClickableLinkChips skills={job?.ski} /> */}
+                </h4>
                 <div className="mt-4">
                   <Stack direction="row" spacing={1}>
                     {job?.skillsRequired &&
@@ -133,9 +195,6 @@ export default function JobDetail() {
                 )}
               </div>
             </CardContent>
-            <CardActions>
-              <Button size="small">Learn More..</Button>
-            </CardActions>
           </Card>
         </>
       )}

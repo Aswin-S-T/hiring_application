@@ -98,7 +98,10 @@ function StepperForm() {
 
   return (
     <div className="container">
-      <div className="card-lg mt-5">
+      <div
+        className="card-lg mt-5"
+        style={{ top: "40px", position: "relative" }}
+      >
         <Stepper steps={steps} activeStep={activeStep} />
         <div style={{ padding: "20px" }}>
           {getSectionComponent()}

@@ -3,7 +3,6 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 
 export default function ClickableLinkChips({ skills }) {
-  console.log("SKILLS-------------", skills);
   return (
     <Stack direction="row" spacing={1}>
       {skills.map((skill) => (

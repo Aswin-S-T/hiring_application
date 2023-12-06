@@ -15,6 +15,7 @@ const candidateRouter = express.Router();
 const multer = require("multer");
 const path = require("path");
 const Jobs = require("../../models/jobModal");
+const fs = require("fs");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -30,11 +31,11 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
+const resumeFolder = path.join(__dirname, "../..", "uploads");
 
-candidateRouter.get("/", async(req, res) => {
+candidateRouter.get("/", async (req, res) => {
   let datas = data.jobs;
-  await Jobs.create(datas)
-  console.log("DATA----------", datas);
+  await Jobs.create(datas);
   res.send("Candidate router called");
 });
 
@@ -59,6 +60,21 @@ candidateRouter.post("/upload-resume", upload.single("resume"), (req, res) => {
   return res.json({ filename });
 });
 
+candidateRouter.get("/download-resume/:filename", (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(resumeFolder, filename);
+
+  if (fs.existsSync(filePath)) {
+    res.setHeader("Content-Disposition", `attachment; filename=${filename}`);
+    res.setHeader("Content-Type", "application/pdf");
+
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
+  } else {
+    res.status(404).json({ error: "File not found" });
+  }
+});
+
 candidateRouter.post("/apply-job", (req, res) => {
   applyJob(req.body.job).then((result) => {
     res.send(result);
@@ -73,6 +89,7 @@ candidateRouter.get("/my-jobs/:id", (req, res) => {
 
 candidateRouter.post("/edit-profile/:id", (req, res) => {
   editProfile(req.params.id, req.body).then((result) => {
+    console.log("result-----------", result);
     res.send(result);
   });
 });
