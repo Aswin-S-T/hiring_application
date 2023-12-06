@@ -19,13 +19,34 @@ function Profile() {
       await axios.get(API_ENDPOINTS.getProfile + `/${id}`).then((resp) => {
         if (resp && resp.status == 200) {
           setUserData(resp?.data?.data);
-          console.log("RESP================", resp?.data?.data);
           setLoading(false);
         }
       });
     };
     fetchData();
   }, []);
+
+  const downloadResume = (resumeFilename) => {
+    axios({
+      method: "get",
+      url: `${API_ENDPOINTS.downloadResume}/${resumeFilename}`,
+      responseType: "blob",
+    }).then((response) => {
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = resumeFilename;
+      link.click();
+    });
+  };
+
+  const handleDownloadClick = () => {
+    if (userData?.resume?.trim() !== "" && userData.resume !== null) {
+      downloadResume(userData.resume);
+    } else {
+      console.log("No resume available for download");
+    }
+  };
 
   return (
     <div>
@@ -35,7 +56,7 @@ function Profile() {
           <Loader />
         ) : (
           <>
-            <div className="row">
+            <div className="row mt-5">
               <div className="col-md-4">
                 <div className="profile-card mt-4">
                   <div className="container-fluid">
@@ -103,7 +124,18 @@ function Profile() {
                         </div>
                       </div>
                     </div>
-                    <button className="dwnd-btn">Download Resume</button>
+
+                    {userData?.resume?.trim() !== "" ||
+                    userData?.resume !== null ? (
+                      <button
+                        className="dwnd-btn mt-3"
+                        onClick={handleDownloadClick}
+                      >
+                        Download Resume
+                      </button>
+                    ) : (
+                      <button className="dwnd-btn mt-3">Upload Resume</button>
+                    )}
                   </div>
                 </div>
                 <div className="profile-card mt-4 p-4">
