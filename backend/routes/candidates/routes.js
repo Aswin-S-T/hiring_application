@@ -76,7 +76,7 @@ candidateRouter.get("/download-resume/:filename", (req, res) => {
 });
 
 candidateRouter.post("/apply-job", (req, res) => {
-  applyJob(req.body.job).then((result) => {
+  applyJob(req.body.data).then((result) => {
     res.send(result);
   });
 });
