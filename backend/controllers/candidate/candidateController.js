@@ -49,23 +49,56 @@ module.exports = {
   },
   applyJob: (data) => {
     return new Promise((resolve, reject) => {
-      AppliedJobs.create(data).then(async (result) => {
-        if (result) {
-          let jobData = await Jobs.findOne({ _id: data.jobId });
-          const updatedUser = await User.findOneAndUpdate(
-            { email: data.email },
-            { $push: { appliedJobs: jobData?._id } },
-            { new: true }
-          ).then(async () => {
-            await sendEmailNotification(
-              data.email,
-              jobData?.jobTitle,
-              "Your application submitted successfullyyy..."
-            );
+      console.log("DATA-------------", data);
+      let job_id = data.jobId;
+      let company_id = data.companyId;
+      delete data.jobId;
+      delete data.companyId;
+      let jobData = Jobs.findOne({_id : job_id})
+      AppliedJobs.findOne({ jobId: data.jobId }).then(async(job) => {
+        if (job) {
+          AppliedJobs.updateOne(
+            { jobId: job_id },
+            { $push: { appliedUsers: data } }
+          ).then(() => {
+            resolve(successResponse);
+          });
+        } else {
+          let applied_users = [];
+          applied_users.push(data);
+          let createdData = {
+            jobId: job_id,
+            companyId: company_id,
+            appliedUsers: applied_users,
+          };
+
+          AppliedJobs.create(createdData).then(() => {
             resolve(successResponse);
           });
         }
+        await sendEmailNotification(
+          data.email,
+          jobData?.jobTitle,
+          "Your application submitted successfullyyy..."
+        );
       });
+      // AppliedJobs.create(data).then(async (result) => {
+      //   if (result) {
+      //     let jobData = await Jobs.findOne({ _id: data.jobId });
+      //     const updatedUser = await User.findOneAndUpdate(
+      //       { email: data.email },
+      //       { $push: { appliedJobs: jobData?._id } },
+      //       { new: true }
+      //     ).then(async () => {
+      //       await sendEmailNotification(
+      //         data.email,
+      //         jobData?.jobTitle,
+      //         "Your application submitted successfullyyy..."
+      //       );
+      //       resolve(successResponse);
+      //     });
+      //   }
+      // });
     });
   },
   getMyJobs: (userId) => {
