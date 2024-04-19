@@ -40,9 +40,10 @@ candidateRouter.get("/", async (req, res) => {
 });
 
 candidateRouter.get("/all-jobs", (req, res) => {
-  listAllJobs().then((result) => {
-    res.send(result);
-  });
+  // listAllJobs().then((result) => {
+  //   res.send(result);
+  // });
+  res.send(data?.jobs);
 });
 
 candidateRouter.get("/job/:jobId", (req, res) => {
