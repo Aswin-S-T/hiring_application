@@ -68,7 +68,7 @@ const LoginForm = () => {
           </h4>
           <img
             src="https://cdni.iconscout.com/illustration/premium/thumb/graphic-designer-6311240-5211312.png"
-            className="w-100"
+            className="w-100 mt-5"
           />
         </div>
         <div className="col-md-6 mt-5">

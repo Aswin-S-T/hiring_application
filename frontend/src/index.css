@@ -83,7 +83,7 @@ button.exploreBtn{
 .login-screen img{
   display: flex;
   align-items: center;
-  top: 15%;
+  /* top: 15%; */
   position: absolute;
 }
 .leftSide h4{
@@ -164,11 +164,31 @@ button.exploreBtn{
 .vertical-tab {
   padding: 10px;
 }
+.register-screen-text{
+  top: 80px;
+  position: relative;
+  font-size: 30px;
+}
+
+.space-around{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+.space-around h4{
+  color: #3498DB;
+  font-size: 18px;
+  font-weight: bold;
+}
 
 .vertical-tab:last-child {
   border-bottom: none;
 }
-
+.form-container{
+  margin-left: 100px;
+  padding: 20px;
+  margin-top: 60px;
+}
 .react-tabs__tab-panel {
   flex: 1;
   padding: 10px;
