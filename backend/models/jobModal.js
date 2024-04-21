@@ -6,7 +6,7 @@ const jobSchema = new mongoose.Schema(
     location: { type: String },
     salary: { type: String },
     jobDescription: { type: String },
-    skills_and_requirement: { type: String },
+    skills_and_requirement: [],
     jobType: { type: String },
     education: { type: String },
     experienceLevel: { type: String },
@@ -20,6 +20,7 @@ const jobSchema = new mongoose.Schema(
     companyWebsite: { type: String },
     social_media_links: [],
     additional_features: { type: String },
+    shift: { type: String, required: true },
   },
   {
     timestamps: true,

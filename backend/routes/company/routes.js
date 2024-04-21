@@ -2,6 +2,7 @@ const express = require("express");
 const {
   addJob,
   getMyJobs,
+  registerCompany,
 } = require("../../controllers/company/companyController");
 
 const companyRouter = express.Router();
@@ -18,6 +19,12 @@ companyRouter.post("/add-job", (req, res) => {
 
 companyRouter.get("/my-jobs", (req, res) => {
   getMyJobs().then((result) => {
+    res.send(result);
+  });
+});
+
+companyRouter.post("/create-account", (req, res) => {
+  registerCompany(req.body).then((result) => {
     res.send(result);
   });
 });

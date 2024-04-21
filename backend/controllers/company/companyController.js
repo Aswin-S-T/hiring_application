@@ -1,6 +1,12 @@
 const Jobs = require("../../models/jobModal");
 const { successResponse, errorResponse } = require("../../constants/response");
 const User = require("../../models/userModal");
+const bcrypt = require("bcrypt");
+let { objectId } = require("mongoose");
+const jwt = require("jsonwebtoken");
+const Company = require("../../models/companyModel");
+const JWT_SECRET = process.env.JWT_SECRET || "something secret";
+
 module.exports = {
   addJob: (data) => {
     return new Promise((resolve, reject) => {
@@ -33,6 +39,35 @@ module.exports = {
 
         resolve(successResponse);
       });
+    });
+  },
+  registerCompany: (data) => {
+    return new Promise(async (resolve, reject) => {
+      let { contact, email } = data;
+      contact = await Company.findOne({ contact });
+      email = await Company.findOne({ email });
+      if (email) {
+        errorResponse.message =
+          "User already exists with this usename or email";
+        resolve(errorResponse);
+      } else {
+        let bcryptedPassword = await bcrypt.hash(data.password, 10);
+
+        data.password = bcryptedPassword;
+        const token = jwt.sign({ email }, JWT_SECRET, {
+          expiresIn: "2h",
+        });
+        data.token = token;
+
+        await Company.create(data).then((result) => {
+          if (result) {
+            successResponse.data = result;
+            resolve(successResponse);
+          } else {
+            resolve(errorResponse);
+          }
+        });
+      }
     });
   },
 };

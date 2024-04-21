@@ -91,7 +91,7 @@ function PersonalDetailsForm({ updateFormData }) {
       portfolio,
     };
     localStorage.setItem("personal-details", JSON.stringify(data));
-    console.log("DATA-----------", data);
+
     setDisable(true);
   };
   return (
@@ -186,7 +186,7 @@ function PersonalDetailsForm({ updateFormData }) {
                   )}
                 </>
               ) : (
-                <p style={{color:"green"}}>{userData?.resume}</p>
+                <p style={{ color: "green" }}>{userData?.resume}</p>
               )}
             </div>
             <div className="col-md-6">

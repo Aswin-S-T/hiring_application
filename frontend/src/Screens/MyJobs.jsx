@@ -38,6 +38,7 @@ function MyJobs() {
       <div className="container">
         <div className="card-lg p-3 mt-5">
           <h4>My Jobs</h4>
+
           <div className="mt-4">
             <Tabs>
               <TabList>
@@ -51,7 +52,9 @@ function MyJobs() {
                     <Loader />
                   ) : myJobs.length > 0 ? (
                     <>
-                      <OutlinedCard data={myJobs} />
+                      {myJobs.map((job) => (
+                        <OutlinedCard data={job} />
+                      ))}
                     </>
                   ) : (
                     <p>No jobs applied yet</p>

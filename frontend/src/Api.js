@@ -8,7 +8,7 @@ const urls = {
   myJobs: `api/candidate/my-jobs`,
   editProfile: `api/candidate/edit-profile`,
   getProfile: `api/candidate/profile`,
-  downloadResume:`api/candidate/download-resume`,
+  downloadResume: `api/candidate/download-resume`,
   // Auth routes
   register: `api/auth/register`,
   login: "api/auth/login",
@@ -17,6 +17,7 @@ const urls = {
   // Company routes
   postJob: `api/company/add-job`,
   postedJobs: `api/company/my-jobs`,
+  registerCompany: `api/company/create-account`,
   // end Company routes
 };
 
@@ -37,6 +38,7 @@ const API_ENDPOINTS = {
   // Company routes
   postJob: `${BASE_URL}/${urls.postJob}`,
   postedJobs: `${BASE_URL}/${urls.postedJobs}`,
+  registerCompany: `${BASE_URL}/${urls.registerCompany}`,
   // End company routes
 };
 

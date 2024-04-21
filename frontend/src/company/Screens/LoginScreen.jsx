@@ -34,13 +34,11 @@ const LoginForm = () => {
           text: "Operation completed successfully.",
         }).then(() => {
           if (response.data.data.role == "Candidate") {
-            // window.location.href = "/alljobs";
             if (response?.data?.data?.experience.length == 0) {
               window.location.href = `/edit-profile/${response?.data?.data?._id}`;
             } else {
-              window.location.href = '/alljobs'
+              window.location.href = "/alljobs";
             }
-            
           } else {
             window.location.href = "/company/dashboard";
           }
@@ -120,4 +118,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-

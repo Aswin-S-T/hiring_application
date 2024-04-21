@@ -16,6 +16,7 @@ import moment from "moment";
 import Loader from "../Loader";
 import ClickableLinkChips from "../Chips/ClickableLinkChips";
 import Swal from "sweetalert2";
+import Carousel from "../Carousel/Carousel";
 
 const bull = (
   <Box
@@ -52,6 +53,10 @@ export default function JobDetail() {
     } else {
       setTimeAgo(`${diffInDays} day${diffInDays !== 1 ? "s" : ""} ago`);
     }
+  };
+
+  const gotoLogin = () => {
+    window.location.href = "/login";
   };
 
   useEffect(() => {
@@ -103,6 +108,7 @@ export default function JobDetail() {
       ) : (
         <>
           <Card sx={{ minWidth: 275 }} className="">
+            <Carousel />
             <CardContent>
               <Typography sx={{ fontSize: 14 }} color="green" gutterBottom>
                 New
@@ -165,7 +171,7 @@ export default function JobDetail() {
                       </span>
                       <ClickableLinkChips
                         className="mt-5"
-                        skills={job?.skills_and_requirement?.split(",")}
+                        skills={job?.skills_and_requirement}
                       />
                     </>
                   )}
@@ -186,13 +192,21 @@ export default function JobDetail() {
               </div>
 
               <div className="mt-3">
-                {userData ? (
+                {/* {userData ? (
                   <button className="loginBtn" onClick={() => applyJob()}>
                     Apply Now
                   </button>
                 ) : (
-                  <button className="loginBtn">Login to Apply</button>
-                )}
+                  <button
+                    className="loginBtn"
+                    onClick={() => (window.location.href = "/login")}
+                  >
+                    Login to Apply
+                  </button>
+                )} */}
+                <button className="loginBtn" onClick={() => applyJob()}>
+                  Apply Now
+                </button>
               </div>
             </CardContent>
           </Card>

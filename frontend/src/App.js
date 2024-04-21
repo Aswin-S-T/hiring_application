@@ -15,6 +15,7 @@ import MyJobs from "./Screens/MyJobs";
 import Profile from "./Screens/Profile";
 import EditProfile from "./Screens/candidate/EditProfile";
 import InterviewScreen from "./Screens/candidate/InterviewScreen";
+import CadidateRegisterScreen from "./company/Screens/RegisterScreenBKP";
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
         </header>
         <main className="">
           <Routes>
+            <Route
+              path="/candidate/register"
+              element={<CadidateRegisterScreen />}
+            />
             <Route path="/listjob" element={<HomeScreen />} />
             <Route path="/job/:id" element={<JobDetailsPage />} />
             <Route path="/" element={<LandingPage />} />

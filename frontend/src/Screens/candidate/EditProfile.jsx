@@ -24,7 +24,7 @@ const EditProfile = () => {
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
-    console.log("FILE-----------", file);
+
     previewFile(file);
     setSelectedFile(file);
     setFileInputState(e.target.value);
@@ -174,7 +174,7 @@ const EditProfile = () => {
   const handleSubmit = async (file) => {
     setProcessing(true);
     formData.skills = itemList;
-    console.log("base64EncodedImage---------------", base64EncodedImage);
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       experience: forms,
@@ -196,19 +196,16 @@ const EditProfile = () => {
           });
         }
       });
-    // Handle form submission with formData
-    console.log("Form submitted with data:", formData);
   };
 
   return (
     <div style={{ backgroundColor: "whitesmoke" }}>
-      {console.log(
-        "USER DATA------------",
-        userData ? userData : "no userData"
-      )}
       <Navbar />
       <div className="container">
-        <div className="card mt-5" style={{ height: "auto",top:"40px",position:"relative" }}>
+        <div
+          className="card mt-5"
+          style={{ height: "auto", top: "40px", position: "relative" }}
+        >
           <div className="container p-2 mt-5">
             {/* <h4 className="mt-2">Update your profile</h4> */}
             <div className="row p-4 mt-5">

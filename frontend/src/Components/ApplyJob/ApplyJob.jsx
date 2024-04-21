@@ -72,11 +72,10 @@ const ApplyJob = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("ID-----------", id);
       await axios
         .get(API_ENDPOINTS.getProfile + `/${userData?._id}`)
         .then((resp) => {
-          console.log("RESP OF USER---------", resp?.data?.data);
+          formData.firstname = resp?.data?.data?.firstName;
         });
     };
     fetchData();
@@ -106,7 +105,7 @@ const ApplyJob = () => {
     formData.jobId = "65601528dbb411088aefe12d";
     formData.companyId = "6561fe0e9171f68b9d4b9cf1";
     formData.my_resume = uploadedFilename ? uploadedFilename : "";
-    console.log("Form Data:", formData);
+
     await axios
       .post(API_ENDPOINTS.applyJob, { data: formData })
       .then((resp) => {

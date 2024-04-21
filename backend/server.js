@@ -43,8 +43,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("callUser", (data) => {
-    console.log("DATA : ", data.from);
-    console.log("NMAE : ", data.name);
     io.to(data.userToCall).emit("callUser", {
       signal: data.signalData,
       from: data.from,

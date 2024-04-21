@@ -6,23 +6,53 @@ import axios from "axios";
 import API_ENDPOINTS from "../Api";
 import Loader from "../Components/Loader";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import ReactPaginate from "react-paginate";
+import Carousel from "../Components/Carousel/Carousel";
 
 function AllJobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [jobsPerPage] = useState(2);
+
+  const indexOfLastJob = (currentPage + 1) * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  let currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
+
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredJobs, setFilteredJobs] = useState([]);
+  const [shift, setShift] = useState([]);
+  const [locations, setLocations] = useState([]);
 
-  // const fetchJobsData = async () => {
-  //   // Simulating data fetching delay
-  //   setLoading(true);
-  //   const response = await fetch("your-api-endpoint");
-  //   const data = await response.json();
-  //   setLoading(false);
-  //   return data;
-  // };
+  const [checkedLocations, setCheckedLocations] = useState([]);
+  const [checkedShifts, setCheckedShifts] = useState([]);
+
+  const [skills, setSkills] = useState([]);
+
+  const handleCheckboxShiftChange = (shift) => {
+    if (checkedShifts.includes(shift)) {
+      setCheckedShifts(checkedShifts.filter((item) => item !== shift));
+    } else {
+      setCheckedShifts([...checkedShifts, shift]);
+    }
+  };
+
+  const handleCheckboxChange = (location) => {
+    if (checkedLocations.includes(location)) {
+      setCheckedLocations(checkedLocations.filter((item) => item !== location));
+    } else {
+      setCheckedLocations([...checkedLocations, location]);
+    }
+  };
+
+  const handleSelectShift = (shift) => {
+    let test = currentJobs.filter((obj) => obj.shift === shift);
+  };
 
   useEffect(() => {
     try {
@@ -32,6 +62,25 @@ function AllJobs() {
 
         if (res && res.data) {
           setLoading(false);
+          let available_shifts = res?.data?.data
+            .map((s) => {
+              return s.shift;
+            })
+            .filter(function (s, index, self) {
+              return index === self.indexOf(s);
+            });
+          setShift(available_shifts);
+          let available_locations = res?.data?.data
+            .map((l) => {
+              return l.location;
+            })
+            .filter(function (l, index, self) {
+              return index === self.indexOf(l);
+            });
+          if (available_locations) {
+            setLocations(available_locations);
+          }
+
           setJobs(res?.data?.data);
         }
       };
@@ -44,7 +93,6 @@ function AllJobs() {
   const handleSearch = async () => {
     const allJobs = jobs;
 
-    // Filter jobs based on search query and sort by jobTitle
     const filteredAndSortedJobs = allJobs
       .filter((job) => {
         job.jobTitle.toLowerCase().includes(searchQuery.toLowerCase());
@@ -57,6 +105,7 @@ function AllJobs() {
   return (
     <div style={{ backgroundColor: "whitesmoke" }}>
       <Navbar />
+
       <div className="mt-5">
         <div className="container-fluid">
           <div class="overlay" style={{ display: "none" }}></div>
@@ -79,6 +128,7 @@ function AllJobs() {
                 </button>
               </div>
               <div class="row main-content ml-md-0 mt-4">
+                <Carousel />
                 <div class="sidebar col-md-3 px-0">
                   <h1 class="border-bottom filter-header d-flex d-md-none p-3 mb-0 align-items-center">
                     <span class="mr-2 filter-close-btn">X</span>
@@ -90,107 +140,64 @@ function AllJobs() {
                       <div className="filtercard p-2">
                         <h2 class="border-bottom filter-title">Job Options</h2>
                         <div class="mb-30 filter-options">
-                          <div class="custom-control custom-checkbox mb-3">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="Indoor"
-                              checked
-                            />
-                            <label class="custom-control-label" for="Indoor">
-                              Night Shift
-                            </label>
-                          </div>
-                          <div class="custom-control custom-checkbox mb-3">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="Outdoor"
-                            />
-                            <label class="custom-control-label" for="Outdoor">
-                              Day Shift
-                            </label>
-                          </div>
+                          {shift &&
+                            shift.length > 0 &&
+                            shift.map((s, index) => (
+                              <div
+                                key={index}
+                                className="custom-control custom-checkbox mb-3"
+                              >
+                                <input
+                                  type="checkbox"
+                                  className="custom-control-input"
+                                  id={`shift-${index}`}
+                                  checked={checkedShifts.includes(s)}
+                                  onChange={() => {
+                                    handleCheckboxShiftChange(s);
+                                    handleSelectShift(s);
+                                  }}
+                                />
+                                <label
+                                  className="custom-control-label"
+                                  htmlFor={`shift-${index}`}
+                                >
+                                  {s} Shift
+                                </label>
+                              </div>
+                            ))}
                         </div>
 
                         <h2 class="font-xbold body-font border-bottom filter-title">
                           Location
                         </h2>
                         <div class="mb-3 filter-options" id="cusine-options">
-                          <div class="custom-control custom-checkbox mb-3">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="Chinese"
-                              checked
-                            />
-                            <label class="custom-control-label" for="Chinese">
-                              Kerala
-                            </label>
-                          </div>
-                          <div class="custom-control custom-checkbox mb-3">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="Italian"
-                            />
-                            <label class="custom-control-label" for="Italian">
-                              Banglore
-                            </label>
-                          </div>
-                          <div class="custom-control custom-checkbox mb-3">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="Mexican"
-                            />
-                            <label class="custom-control-label" for="Mexican">
-                              Trivandrum
-                            </label>
-                          </div>
-                          <div class="custom-control custom-checkbox mb-3">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="Thai"
-                            />
-                            <label class="custom-control-label" for="Thai">
-                              Kottayam
-                            </label>
-                          </div>
-                          <div class="custom-control custom-checkbox mb-3">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="Gujarati"
-                            />
-                            <label class="custom-control-label" for="Gujarati">
-                              Ernakulam
-                            </label>
-                          </div>
-                          <div class="custom-control custom-checkbox mb-3">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="Panjabi"
-                            />
-                            <label class="custom-control-label" for="Panjabi">
-                              Panjab
-                            </label>
-                          </div>
-                          <div class="custom-control custom-checkbox mb-3">
-                            <input
-                              type="checkbox"
-                              class="custom-control-input"
-                              id="South-Indian"
-                            />
-                            <label
-                              class="custom-control-label"
-                              for="South-Indian"
-                            >
-                              South Indian
-                            </label>
-                          </div>
+                          {locations && locations.length > 0 ? (
+                            locations.map((location, index) => (
+                              <div key={index}>
+                                <div className="custom-control custom-checkbox mb-3">
+                                  <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id={location}
+                                    checked={checkedLocations.includes(
+                                      location
+                                    )}
+                                    onChange={() =>
+                                      handleCheckboxChange(location)
+                                    }
+                                  />
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor={location}
+                                  >
+                                    {location}
+                                  </label>
+                                </div>
+                              </div>
+                            ))
+                          ) : (
+                            <>No locations available</>
+                          )}
                         </div>
 
                         <h2 class="font-xbold body-font border-bottom filter-title">
@@ -284,14 +291,6 @@ function AllJobs() {
                   </div>
                 </div>
                 <div class="content col-md-9">
-                  {/* <div>
-                    <input
-                      type="search"
-                      className="form-control"
-                      placeholder="Search job"
-                    />
-                    <i className="fa fa-search" style={{ float: "right" }}></i>
-                  </div> */}
                   <div class="d-flex justify-content-between border-bottom align-items-center mt-2">
                     <h2 class="title">All Jobs</h2>
 
@@ -362,7 +361,26 @@ function AllJobs() {
                       <Loader class="text-center" />
                     ) : (
                       <div className="row col-md-12">
-                        <OutlinedCard data={jobs} className="w-100" />
+                        {/* <OutlinedCard data={jobs} className="w-100" /> */}
+                        {currentJobs.map((job, index) => (
+                          <OutlinedCard
+                            key={index}
+                            data={job}
+                            className="w-100"
+                          />
+                        ))}
+                        <ReactPaginate
+                          previousLabel={"Previous"}
+                          nextLabel={"Next"}
+                          breakLabel={"..."}
+                          breakClassName={"break-me"}
+                          pageCount={Math.ceil(jobs.length / jobsPerPage)}
+                          marginPagesDisplayed={2}
+                          pageRangeDisplayed={5}
+                          onPageChange={handlePageClick}
+                          containerClassName={"pagination"}
+                          activeClassName={"active"}
+                        />
                       </div>
                     )}
                   </div>

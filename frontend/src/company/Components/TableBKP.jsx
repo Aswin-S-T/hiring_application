@@ -38,7 +38,6 @@ function createData(name, calories, fat, carbs, protein, price) {
 }
 
 function Row(props) {
-  console.log("PRPOS--------------", props);
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 

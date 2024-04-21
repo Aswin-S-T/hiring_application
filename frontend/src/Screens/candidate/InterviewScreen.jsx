@@ -189,11 +189,9 @@ function InterviewScreen() {
             </div>
           </div>
           <div>
-            {console.log('RECEIVING CALL : ', answerCall ? answerCall : 'no answerCalls')}
-            {console.log('callAccepted CALL : ', callAccepted ? callAccepted : 'no callAccepted')}
             {receivingCall && !callAccepted ? (
               <div className="caller">
-                <h1 style={{color:"red"}}>{name} is calling...</h1>
+                <h1 style={{ color: "red" }}>{name} is calling...</h1>
                 <Button
                   variant="contained"
                   color="primary"

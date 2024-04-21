@@ -96,7 +96,6 @@ const Table2 = () => {
                       <h6>Applied candiates</h6>
                       <tr>
                         <td colSpan="5">
-                          {/* Render the expanded table with applied candidates */}
                           <table
                             style={{
                               width: "100%",
@@ -110,7 +109,6 @@ const Table2 = () => {
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Actions</th>
-                                {/* Add more columns as needed */}
                               </tr>
                             </thead>
                             <tbody>

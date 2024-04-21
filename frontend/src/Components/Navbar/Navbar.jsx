@@ -39,7 +39,7 @@ function Navbar() {
                   <a href="/login">Login</a>
                 </li>
                 <li>
-                  <a href="/register" className="loginBnt text-white">
+                  <a href="/candidate/register" className="loginBnt text-white">
                     Sign Up
                   </a>
                 </li>

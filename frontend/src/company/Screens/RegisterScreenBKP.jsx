@@ -3,7 +3,7 @@ import axios from "axios";
 import API_ENDPOINTS from "../../Api";
 import Swal from "sweetalert2";
 
-function RegisterScreen() {
+function CadidateRegisterScreen() {
   const [role, setRole] = useState("Candidate");
   const [username, setUsername] = useState("");
   const [userNameError, setUsernameError] = useState(false);
@@ -84,7 +84,7 @@ function RegisterScreen() {
           title: "Success!",
           text: "Registered successfully.",
         }).then(() => {
-          window.location.href = "/login";
+          window.location.href = "/alljobs";
         });
       } else {
         Swal.fire({
@@ -94,7 +94,6 @@ function RegisterScreen() {
         });
       }
     });
-    console.log("SUBMIT CALLED", registerData);
   };
 
   return (
@@ -106,8 +105,9 @@ function RegisterScreen() {
               Welcome to <span> JobWave</span>
             </h4>
             <img
-              src="https://cdni.iconscout.com/illustration/premium/thumb/graphic-designer-6311240-5211312.png"
+              src="https://cdni.iconscout.com/illustration/premium/thumb/searching-for-job-online-4487043-3738450.png"
               className="w-100"
+              style={{ top: "60px", position: "relative" }}
             />
           </div>
           <div className="col-md-6 mt-5">
@@ -121,36 +121,40 @@ function RegisterScreen() {
                     type="text"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
+                    placeholder="Enter first name"
                   />
                   <br />
                   {firstNameError && (
                     <p style={{ color: "red" }}>First name required</p>
                   )}
-                  <br />
+
                   <p>Last Name</p>
                   <input
                     type="text"
                     onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Enter last name"
                   />
                   <br />
                   {lastNameError && (
                     <p style={{ color: "red" }}>last name required</p>
                   )}
-                  <br />
+
                   <p>User Name</p>
                   <input
                     type="text"
                     onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Enter your username"
                   />
                   <br />
                   {userNameError && (
                     <p style={{ color: "red" }}>username required</p>
                   )}
-                  <br />
+
                   <p>Email Address</p>
                   <input
                     type="email"
                     onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
                   />
                   <br />
                   {emailError && <p style={{ color: "red" }}>Email required</p>}
@@ -159,30 +163,19 @@ function RegisterScreen() {
                   <input
                     type="text"
                     onChange={(e) => setContact(e.target.value)}
+                    placeholder="Enter your mobile number"
                   />
                   <br />
                   {contactError && (
                     <p style={{ color: "red" }}>Phone number required</p>
                   )}
-                  <br />
-                  <p>Join as</p>
-                  <select
-                    style={{ width: "50%" }}
-                    onChange={(e) => setRole(e.target.value)}
-                  >
-                    <option value={"Candidate"}>Candidate</option>
-                    <option value={"Company"}>Company</option>
-                  </select>
-                  <br />
-                  <br />
 
-                  <br />
-                  <br />
                   <p>Password</p>
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    placeholder="****"
                   />
                   <i
                     // style={{
@@ -222,4 +215,4 @@ function RegisterScreen() {
   );
 }
 
-export default RegisterScreen;
+export default CadidateRegisterScreen;

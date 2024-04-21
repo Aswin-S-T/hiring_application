@@ -101,7 +101,7 @@ function LandingPage() {
                 <div>
                   <img
                     src="https://st.depositphotos.com/1144472/1971/i/450/depositphotos_19714321-stock-photo-young-happy-smiling-business-man.jpg"
-                    className="w-100"
+                    className="w-50"
                   />
                 </div>
               </div>

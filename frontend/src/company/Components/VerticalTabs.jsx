@@ -10,6 +10,8 @@ import AllJobs from "../Screens/AllJobs";
 import UnapprovedJobs from "../Screens/UnapprovedJobs";
 import ChatScreen from "../Screens/ChatScreen";
 import MultiStepForm from "./MultiStepForm";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import Profile from "../Screens/Profile";
 
 const VerticalTabs = () => {
   return (
@@ -22,7 +24,7 @@ const VerticalTabs = () => {
                 src={process.env.PUBLIC_URL + "/brand1.png"}
                 alt="Example"
                 className=" w-50"
-                style={{left:"35px",position:"relative"}}
+                style={{ left: "35px", position: "relative" }}
               />
             </div>
             <Tab className="vertical-tab mt-4">
@@ -40,6 +42,9 @@ const VerticalTabs = () => {
             <Tab className="vertical-tab">
               <ChatIcon /> Messages
             </Tab>
+            <Tab className="vertical-tab">
+              <PersonRoundedIcon /> Profile
+            </Tab>
           </TabList>
           <TabPanel>
             <Home />
@@ -55,6 +60,9 @@ const VerticalTabs = () => {
           </TabPanel>
           <TabPanel>
             <ChatScreen />
+          </TabPanel>
+          <TabPanel>
+            <Profile />
           </TabPanel>
         </Tabs>
       </div>

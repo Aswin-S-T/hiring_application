@@ -49,13 +49,12 @@ module.exports = {
   },
   applyJob: (data) => {
     return new Promise((resolve, reject) => {
-      console.log("DATA-------------", data);
       let job_id = data.jobId;
       let company_id = data.companyId;
       delete data.jobId;
       delete data.companyId;
-      let jobData = Jobs.findOne({_id : job_id})
-      AppliedJobs.findOne({ jobId: data.jobId }).then(async(job) => {
+      let jobData = Jobs.findOne({ _id: job_id });
+      AppliedJobs.findOne({ jobId: data.jobId }).then(async (job) => {
         if (job) {
           AppliedJobs.updateOne(
             { jobId: job_id },
@@ -137,9 +136,9 @@ module.exports = {
             upload_preset: "hiring_application",
           }
         );
-        console.log("image from cloudinary : ", imageResponse?.url);
+
         data.profileImage = imageResponse?.url;
-        console.log("DATA : ", data);
+
         const updatedUser = await User.updateOne(
           { _id: userId },
           { $set: data }

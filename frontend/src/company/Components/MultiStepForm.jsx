@@ -130,7 +130,7 @@ const MultistepForm = () => {
           };
         }
         break;
-      // Add more cases for additional steps if needed
+
       default:
         break;
     }
@@ -141,7 +141,6 @@ const MultistepForm = () => {
   const handleSubmit = async () => {
     const finalErrors = validateStep(activeStep);
     if (Object.keys(finalErrors).length === 0) {
-      console.log(formData);
       await axios.post(API_ENDPOINTS.postJob, formData).then((resp) => {
         if (resp.status == 200) {
           Swal.fire({
@@ -159,7 +158,7 @@ const MultistepForm = () => {
           });
         }
       });
-      // Perform submit logic here
+
       setFormData({
         jobTitle: "",
         jobDescription: "",

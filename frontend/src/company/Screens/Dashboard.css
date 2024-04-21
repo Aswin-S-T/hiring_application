@@ -1,18 +1,18 @@
 .vertical-tabs {
     display: flex;
-    align-items: flex-start; /* Align tabs and content vertically */
+    align-items: flex-start;
   }
   
   .tab-list {
     display: flex;
-    flex-direction: column; /* Display tabs vertically */
+    flex-direction: column;
   }
   
   .tab-list .react-tabs__tab {
-    margin-bottom: 10px; /* Add space between tabs */
+    margin-bottom: 10px; 
   }
   
   .tab-panels {
-    margin-left: 20px; /* Add space between tabs and content */
+    margin-left: 20px; 
   }
   

@@ -27,9 +27,9 @@ div.landing-page-container{
   color: #111;
   /* font-family: 'Rubik', sans-serif; */
   font-family: sans-serif;
-  /* top: 80%;
-  left: 5%;
-  position: relative; */
+  top: 100px;
+  left: 20%;
+  position: relative;
   text-align: center;
 }
 .title span{
@@ -188,6 +188,10 @@ button.exploreBtn{
   margin-left: 100px;
   padding: 20px;
   margin-top: 60px;
+}
+.form-container p{
+  color: #444;
+  font-weight: bold;
 }
 .react-tabs__tab-panel {
   flex: 1;
@@ -534,4 +538,29 @@ div.MuiBox-root{
 }
 .job-details-page h5{
   font-weight: 600;
+}
+/* Profile Screen */
+.profile-screen{
+  background-color:red;
+  width: 100%;
+  height: 100vh;
+}
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+}
+
+.pagination li {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination li.active {
+  font-weight: bold;
+}
+
+.pagination li:hover {
+  text-decoration: underline;
 }
