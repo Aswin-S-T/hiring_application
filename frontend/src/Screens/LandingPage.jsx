@@ -3,11 +3,13 @@ import Navbar from "../Components/Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
 import TotalAvatars from "../Components/TotalAvatars/TotalAvatars";
 import Page1 from "./candidate/Page1";
+import Header from "../Components/Header/Header";
 
 function LandingPage() {
   return (
     <div>
       <Navbar />
+      {/* <Header /> */}
       <div className="container-fluid landing-page-container">
         <div className="row mt-5" style={{ top: "40px", position: "relative" }}>
           <div className="col-md-5 mt-5">
@@ -19,15 +21,7 @@ function LandingPage() {
                 </h2>
               </div>
               <div>
-                {/* <p className="about-desc mt-5">
-                Welcome to{" "}
-                <span style={{ color: "darkcyan" }}>CareerLinker</span>, where
-                opportunities meet talent. Discover your next career move or
-                find the perfect candidate with our intuitive job portal.
-                Connecting companies and candidates seamlessly, we make the
-                hiring process simple and efficient. Your journey to success
-                starts here.
-              </p> */}
+                
               </div>
             </div>
           </div>
@@ -171,7 +165,7 @@ function LandingPage() {
           </div>
         </section>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
