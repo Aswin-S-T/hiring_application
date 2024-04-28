@@ -79,7 +79,7 @@ function Navbar() {
               // </li>
             )}
           </ul>
-          <h1 class="logo">CareerLinker</h1>
+          <h1 class="logo">Jobify</h1>
         </div>
       </nav>
     </div>

@@ -3,9 +3,13 @@ import React from "react";
 function Header() {
   return (
     <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-          Navbar
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <a
+          class="navbar-brand"
+          href="/"
+          style={{ fontSize: 35, fontFamily: "sans-serif", color: "#52BE80" }}
+        >
+          Jobify
         </a>
         <button
           class="navbar-toggler"
@@ -27,11 +31,25 @@ function Header() {
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                Link
+              <a class="nav-link" href="/alljobs">
+                All Jobs
               </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item">
+              <a class="nav-link" href="/myjobs">
+                My Jobs
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+            </li>
+          </ul>
+          <div class="form-inline my-2 my-lg-0">
+            <li
+              class="nav-item dropdown"
+              style={{ listStyle: "none",  }}
+            >
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -54,21 +72,7 @@ function Header() {
                 </a>
               </div>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
-          </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input
-              class="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-              Search
-            </button>
-          </form>
+          </div>
         </div>
       </nav>
     </div>

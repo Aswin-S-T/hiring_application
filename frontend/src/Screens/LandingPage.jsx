@@ -9,30 +9,24 @@ function LandingPage() {
   return (
     <div>
       <Navbar />
-      {/* <Header /> */}
       <div className="container-fluid landing-page-container">
-        <div className="row mt-5" style={{ top: "40px", position: "relative" }}>
-          <div className="col-md-5 mt-5">
-            <div className="container">
-              <div className="title mt-5">
-                <h2>
-                  Its Easy to find your
-                  <span>Dream Job</span>
-                </h2>
-              </div>
-              <div>
-                
-              </div>
+        <div className="row mt-5">
+          <div className="col-md-6 d-flex justify-content-center align-items-center">
+            <div className="title">
+              <h2 style={{ textAlign: "left" }} className="w-75">
+                Its Easy to find your
+                <span> Dream Job</span>
+              </h2>
             </div>
           </div>
-          <div className="col-md-7 mt-5">
+          <div className="col-md-6">
             <img
-              style={{ top: "-80px", position: "relative" }}
-              src="https://img.freepik.com/free-photo/happy-young-man-using-laptop-computer_171337-19581.jpg"
+              src="https://cdni.iconscout.com/illustration/premium/thumb/job-search-4268354-3560997.png"
               className="w-100"
             />
           </div>
         </div>
+
         <div className="container">
           <div className="row">
             <div className="col-md-4">
@@ -82,12 +76,12 @@ function LandingPage() {
           <Page1 />
         </section>
 
-        <div className="advDiv">
+        {/* <div className="advDiv">
           <h4>
             Find the Talent needed <br /> to get your Business growing
           </h4>
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY7SBE57Fhwae1H6ViP378GsJGzvDULrFz4w&usqp=CAU" />
-        </div>
+        </div> */}
         <section>
           <div className="container mt-5">
             <div className="row">
@@ -95,7 +89,7 @@ function LandingPage() {
                 <div>
                   <img
                     src="https://st.depositphotos.com/1144472/1971/i/450/depositphotos_19714321-stock-photo-young-happy-smiling-business-man.jpg"
-                    className="w-50"
+                    className="w-75"
                   />
                 </div>
               </div>
@@ -165,7 +159,7 @@ function LandingPage() {
           </div>
         </section>
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

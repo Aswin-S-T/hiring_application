@@ -21,9 +21,7 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <header style={{ backgroundColor: "yellow" }}>
-          {/* <PrimarySearchAppBar style={{ backgroundColor: "yellow" }} /> */}
-        </header>
+        <header></header>
         <main className="">
           <Routes>
             <Route
@@ -34,7 +32,7 @@ function App() {
             <Route path="/job/:id" element={<JobDetailsPage />} />
             <Route path="/" element={<LandingPage />} />
             <Route path="/alljobs" element={<AllJobs />} />
-            {/* Company Routes */}
+
             <Route path="/login" element={<LoginScreen />} />
             <Route path="/register" element={<RegisterScreen />} />
             <Route path="/company/dashboard" element={<Dashboard />} />
